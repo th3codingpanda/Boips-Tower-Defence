@@ -97,7 +97,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "New action",
+                    "name": "BuildMenu",
                     "type": "Button",
                     "id": "781fdd33-2f7e-4546-ba6c-c45d919857ac",
                     "expectedControlType": "",
@@ -517,11 +517,22 @@
                 {
                     "name": "",
                     "id": "dc1c747a-3216-4575-959e-d93e7763eb6b",
-                    "path": "",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "BuildMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2253a526-4633-495d-aede-39e6bf5b188e",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BuildMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

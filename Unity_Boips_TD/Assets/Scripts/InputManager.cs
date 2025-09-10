@@ -9,10 +9,12 @@ public class InputPackageManagerScript : MonoSingleton<InputPackageManagerScript
     [NonSerialized]public readonly UnityEvent<Vector2> CameraEvent = new UnityEvent<Vector2>();
     [NonSerialized]public readonly UnityEvent<Vector2> MoveEvent = new UnityEvent<Vector2>();
     [NonSerialized]public readonly UnityEvent JumpEvent = new UnityEvent();
+    [NonSerialized]public readonly UnityEvent BuildMenuEvent = new UnityEvent();
    
     InputAction _cameraAction;
     InputAction _moveAction;
     InputAction _jumpAction;
+    InputAction _BuildMenuAction;
   
         
     void Start()
@@ -21,6 +23,7 @@ public class InputPackageManagerScript : MonoSingleton<InputPackageManagerScript
         _cameraAction = InputSystem.actions.FindAction("Camera");
         _moveAction = InputSystem.actions.FindAction("Move");
         _jumpAction = InputSystem.actions.FindAction("Jump");
+        _BuildMenuAction = InputSystem.actions.FindAction("BuildMenu");
     }
     void Update()
     {
@@ -33,12 +36,14 @@ public class InputPackageManagerScript : MonoSingleton<InputPackageManagerScript
         if (_jumpAction.IsInProgress())
         {
             JumpEvent.Invoke();
-            
         }
         MoveEvent.Invoke(_moveAction.ReadValue<Vector2>());
-        
-            
-            
+        if (_BuildMenuAction.triggered)
+        {
+            BuildMenuEvent.Invoke();
+        }
+
+
     }
 
 }
