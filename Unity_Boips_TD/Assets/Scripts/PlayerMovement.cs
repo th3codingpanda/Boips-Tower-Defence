@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
         
-    [SerializeField] InputPackageManagerScript inputScript;
+    private InputPackageManagerScript _inputScript;
     [Header("Camera")]
     [SerializeField] private float mouseSensitivity;
     private float _verticalRotation;
@@ -30,11 +30,12 @@ public class PlayerMovement : MonoBehaviour
         
     void Start()
     {
+        _inputScript = InputPackageManagerScript.Instance;
         // Set the raycast to be slightly beneath the player's feet
         _raycastDistance = (_playerHeight / 2) + 0.2f;
-        inputScript.CameraEvent.AddListener(RotateCamera);
-        inputScript.MoveEvent.AddListener(MovePlayer);
-        inputScript.JumpEvent.AddListener(Jump);
+        _inputScript.CameraEvent.AddListener(RotateCamera);
+        _inputScript.MoveEvent.AddListener(MovePlayer);
+        _inputScript.JumpEvent.AddListener(Jump);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }

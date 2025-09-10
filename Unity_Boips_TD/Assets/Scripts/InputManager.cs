@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-public class InputPackageManagerScript : MonoBehaviour
+public class InputPackageManagerScript : MonoSingleton<InputPackageManagerScript>
 {
         
     [NonSerialized]public readonly UnityEvent<Vector2> CameraEvent = new UnityEvent<Vector2>();
