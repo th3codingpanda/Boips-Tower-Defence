@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 public class GridMapPositionShow : MonoBehaviour
 {
@@ -11,8 +12,14 @@ public class GridMapPositionShow : MonoBehaviour
         _ray = new Ray(rayCastCamera.transform.position, rayCastCamera.transform.forward);
         if (Physics.Raycast(_ray, out _hit, 3, placementlayermask))
         {
+            Debug.Log(_hit.collider.gameObject.name);
             _lastPosition = _hit.point;
         }
         return _lastPosition;
+    }
+
+    private void Update()
+    {
+        GetSelectedMapPosition();
     }
 }
