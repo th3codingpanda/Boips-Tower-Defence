@@ -37,19 +37,19 @@ public class TowerPlacement : MonoBehaviour
                 else
                 {
                     CurrentPlacingTower.transform.position = hitInfo.point;
-                    //ChangeAlpha(CurrentPlacingTower.GetComponent<Renderer>().material, alpha);
+                    
                 }
             }
 
             // Only place tower if NOT clicking on UI
             if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
-                // Optionally enable collider here if disabled during placement
                 CurrentPlacingTower = null;
             }
         }
     }
 
+    // Optionally enable collider here if disabled during placement
     //void ChangeAlpha(Material mat, float alphaVal)
     //{
     //    Color oldColor = mat.color;
