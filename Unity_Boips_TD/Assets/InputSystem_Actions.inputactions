@@ -555,6 +555,17 @@
                     "action": "PlaceTower",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "73e8b7e8-468f-4262-aef8-5c3729c2afb7",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PlaceTower",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
