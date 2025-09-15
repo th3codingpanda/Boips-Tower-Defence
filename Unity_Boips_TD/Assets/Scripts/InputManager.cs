@@ -10,11 +10,14 @@ public class InputPackageManagerScript : MonoSingleton<InputPackageManagerScript
     [NonSerialized]public readonly UnityEvent<Vector2> MoveEvent = new UnityEvent<Vector2>();
     [NonSerialized]public readonly UnityEvent JumpEvent = new UnityEvent();
     [NonSerialized]public readonly UnityEvent BuildMenuEvent = new UnityEvent();
+    [NonSerialized]public readonly UnityEvent PlaceTowerEvent = new UnityEvent();
+    
    
     InputAction _cameraAction;
     InputAction _moveAction;
     InputAction _jumpAction;
     InputAction _BuildMenuAction;
+    InputAction _PlaceTowerAction;
   
         
     void Start()
@@ -24,6 +27,7 @@ public class InputPackageManagerScript : MonoSingleton<InputPackageManagerScript
         _moveAction = InputSystem.actions.FindAction("Move");
         _jumpAction = InputSystem.actions.FindAction("Jump");
         _BuildMenuAction = InputSystem.actions.FindAction("BuildMenu");
+        _PlaceTowerAction = InputSystem.actions.FindAction("PlaceTower");
     }
     void Update()
     {
@@ -41,6 +45,11 @@ public class InputPackageManagerScript : MonoSingleton<InputPackageManagerScript
         if (_BuildMenuAction.triggered)
         {
             BuildMenuEvent.Invoke();
+        }
+
+        if (_PlaceTowerAction.triggered)
+        {
+            PlaceTowerEvent.Invoke();
         }
 
 

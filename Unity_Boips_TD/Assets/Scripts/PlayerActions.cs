@@ -9,10 +9,17 @@ public class PlayerActions : MonoBehaviour
     {
         _inputScript = InputPackageManagerScript.Instance;
         _inputScript.BuildMenuEvent.AddListener(ToggleBuildMode);
+        _inputScript.PlaceTowerEvent.AddListener(PlaceTower);
     }
 
     private void ToggleBuildMode()
     {
         gridDisplay.SetActive(!gridDisplay.activeSelf);
     }
+
+    private void PlaceTower()
+    {
+        Debug.Log("Placing tower");
+    }
+
 }
