@@ -926,6 +926,9 @@ MonoBehaviour:
   gridPositionIndicator: {fileID: 442721684}
   grid: {fileID: 590954371}
   gridIndicatorOffset: {x: 0.5, y: 0, z: 0.5}
+  gridDisplay: {fileID: 1287283968}
+  towers:
+  - {fileID: 5358007376602177948, guid: f5b33fbaa63ce9976b8880e4b484426d, type: 3}
 --- !u!1 &1009216611
 GameObject:
   m_ObjectHideFlags: 0
