@@ -49,6 +49,7 @@ public class InputPackageManagerScript : MonoSingleton<InputPackageManagerScript
 
         if (_PlaceTowerAction.triggered)
         {
+            
             PlaceTowerEvent.Invoke();
         }
 
