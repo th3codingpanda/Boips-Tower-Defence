@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class DamageScript : MonoBehaviour, IEnemyTarget
+public class DamageScript : Enemy
 {
 
     [SerializeField] private int _hp = 100;
@@ -25,11 +25,11 @@ public class DamageScript : MonoBehaviour, IEnemyTarget
         //TakeDamage(1);
     }
 
-    void IEnemyTarget.Target()
+    public override void Target()
     {
         //ColorChange();
     }
-    void IEnemyTarget.UnTarget()
+    public override void UnTarget()
     {
         //_render.material.color = _defColor;
     }

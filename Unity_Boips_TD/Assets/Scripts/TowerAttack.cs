@@ -16,11 +16,11 @@ public class TowerAttack : MonoBehaviour
     [SerializeField] private float _attackCooldown;
     private float _cooldownTimer;
     [SerializeField] private float _distance;
-    [SerializeField] private GameObject enemyPrefab;
+    //[SerializeField] private GameObject enemyPrefab;
 
     public float Radius = 15f;
-    private IEnemyTarget _closestEnemy;
-    IEnemyTarget target;
+    private Enemy _closestEnemy;
+    Enemy target;
 
 
     //[SerializeField] private GameObject[] AllEnemyObjects;
@@ -85,16 +85,27 @@ public class TowerAttack : MonoBehaviour
     {
         FindClosestEnemy();
         //target = _closestEnemy
-        //_distance = Vector2.Distance(_closestEnemy.transform.position, this.gameObject.transform.position);
-
-        if (_distance <= 10f && enemyPrefab != null)
+        _distance = Vector2.Distance(_closestEnemy.transform.position, this.gameObject.transform.position);
+        if (_closestEnemy != null)
         {
-            if (isCoolingDown) return;
-            Debug.Log("Hit an enemy!");
-            enemyPrefab.transform.GetComponent<DamageScript>().TakeDamage(10);
-            CoolDownStart();
+            Debug.Log($"Distance to target: {_distance}");
+            if (_distance <= 30f && _closestEnemy != null)
+            {
+                if (isCoolingDown) return;
+                Debug.Log("Hit an enemy!");
+                _closestEnemy.transform.GetComponent<DamageScript>().TakeDamage(10);
+                CoolDownStart();
 
+            }
         }
+        //if (_distance <= 30f && _closestEnemy != null)
+        //{
+        //    if (isCoolingDown) return;
+        //    Debug.Log("Hit an enemy!");
+        //    _closestEnemy.transform.GetComponent<DamageScript>().TakeDamage(10);
+        //    CoolDownStart();
+
+        //}
        
     }
     

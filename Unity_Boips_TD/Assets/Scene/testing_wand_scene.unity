@@ -295,11 +295,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &209946782 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4914119432312854684, guid: be9ab60f237a8fc4ba6dda60f1ec00ce, type: 3}
-  m_PrefabInstance: {fileID: 1346538191}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &367778574
 GameObject:
   m_ObjectHideFlags: 0
@@ -429,11 +424,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8506926853303942936, guid: be9ab60f237a8fc4ba6dda60f1ec00ce, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -36.888847
+      value: -33.33
       objectReference: {fileID: 0}
     - target: {fileID: 8506926853303942936, guid: be9ab60f237a8fc4ba6dda60f1ec00ce, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.005
+      value: 1.01
       objectReference: {fileID: 0}
     - target: {fileID: 8506926853303942936, guid: be9ab60f237a8fc4ba6dda60f1ec00ce, type: 3}
       propertyPath: m_LocalPosition.z
@@ -491,9 +486,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerAttack
   _attackCooldown: 1
   _distance: 0
-  enemyPrefab: {fileID: 1118882677}
-  AllEnemyObjects:
-  - {fileID: 209946782}
+  Radius: 20
 --- !u!1 &597996861
 GameObject:
   m_ObjectHideFlags: 0
@@ -569,11 +562,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1118882677 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4914119432312854684, guid: be9ab60f237a8fc4ba6dda60f1ec00ce, type: 3}
-  m_PrefabInstance: {fileID: 179259008}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1273546806
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1055,7 +1043,7 @@ Transform:
   m_GameObject: {fileID: 1520106240}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -32.64727, y: 0, z: 8.82}
+  m_LocalPosition: {x: -32.64727, y: 1.95, z: 8.82}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
