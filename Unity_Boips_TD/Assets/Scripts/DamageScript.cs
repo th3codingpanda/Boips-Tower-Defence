@@ -25,6 +25,14 @@ public class DamageScript : MonoBehaviour, IEnemyTarget
         //TakeDamage(1);
     }
 
+    void IEnemyTarget.Target()
+    {
+        //ColorChange();
+    }
+    void IEnemyTarget.UnTarget()
+    {
+        //_render.material.color = _defColor;
+    }
     public void TakeDamage(int damage)
     {
         _hp -= damage;
@@ -34,4 +42,6 @@ public class DamageScript : MonoBehaviour, IEnemyTarget
             Destroy(this.gameObject);
         }
     }
+
+   
 }

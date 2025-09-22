@@ -19,8 +19,8 @@ public class TowerAttack : MonoBehaviour
     [SerializeField] private GameObject enemyPrefab;
 
     public float Radius = 15f;
-    private EnemyTarget _closestEnemy;
-    EnemyTarget target;
+    private IEnemyTarget _closestEnemy;
+    IEnemyTarget target;
 
 
     //[SerializeField] private GameObject[] AllEnemyObjects;
@@ -85,7 +85,7 @@ public class TowerAttack : MonoBehaviour
     {
         FindClosestEnemy();
         //target = _closestEnemy
-        _distance = Vector2.Distance(target.transform.position, this.gameObject.transform.position);
+        //_distance = Vector2.Distance(_closestEnemy.transform.position, this.gameObject.transform.position);
 
         if (_distance <= 10f && enemyPrefab != null)
         {
