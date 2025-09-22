@@ -11,23 +11,25 @@ public class InputPackageManagerScript : MonoSingleton<InputPackageManagerScript
     [NonSerialized]public readonly UnityEvent JumpEvent = new UnityEvent();
     [NonSerialized]public readonly UnityEvent BuildMenuEvent = new UnityEvent();
     [NonSerialized]public readonly UnityEvent PlaceTowerEvent = new UnityEvent();
+    [NonSerialized]public readonly UnityEvent<float> SwapTowerEvent = new UnityEvent<float>();
     
    
     InputAction _cameraAction;
     InputAction _moveAction;
     InputAction _jumpAction;
-    InputAction _BuildMenuAction;
-    InputAction _PlaceTowerAction;
+    InputAction _buildMenuAction;
+    InputAction _placeTowerAction;
+    InputAction _swapTowerAction;
   
         
     void Start()
     {
-        Debug.Log("InputManager Start");
         _cameraAction = InputSystem.actions.FindAction("Camera");
         _moveAction = InputSystem.actions.FindAction("Move");
         _jumpAction = InputSystem.actions.FindAction("Jump");
-        _BuildMenuAction = InputSystem.actions.FindAction("BuildMenu");
-        _PlaceTowerAction = InputSystem.actions.FindAction("PlaceTower");
+        _buildMenuAction = InputSystem.actions.FindAction("BuildMenu");
+        _placeTowerAction = InputSystem.actions.FindAction("PlaceTower");
+        _swapTowerAction = InputSystem.actions.FindAction("SwapTower");
     }
     void Update()
     {
@@ -42,17 +44,21 @@ public class InputPackageManagerScript : MonoSingleton<InputPackageManagerScript
             JumpEvent.Invoke();
         }
         MoveEvent.Invoke(_moveAction.ReadValue<Vector2>());
-        if (_BuildMenuAction.triggered)
+        if (_buildMenuAction.triggered)
         {
             BuildMenuEvent.Invoke();
         }
 
-        if (_PlaceTowerAction.triggered)
+        if (_placeTowerAction.triggered)
         {
             
             PlaceTowerEvent.Invoke();
         }
 
+        if (_swapTowerAction.triggered)
+        {
+            SwapTowerEvent.Invoke(_swapTowerAction.ReadValue<float>());    
+        }
 
     }
 
