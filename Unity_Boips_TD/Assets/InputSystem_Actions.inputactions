@@ -113,6 +113,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SwapTower",
+                    "type": "Button",
+                    "id": "c0f687d1-de0c-4594-bd3d-a9d8e3a3939c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -564,6 +573,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "PlaceTower",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "39beb2cc-de06-4bad-9853-e4634676b02b",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "Invert",
+                    "groups": "",
+                    "action": "SwapTower",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b67d11dd-3007-49a0-9a59-ba9d3fe0386b",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwapTower",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 4164860270062662633}
   - component: {fileID: 4501799505234890367}
   - component: {fileID: 4246325524724838814}
+  - component: {fileID: 3716585743204392356}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -155,7 +156,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cdc8347441bc392ca1dd905134dba62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  inputScript: {fileID: 0}
   mouseSensitivity: 0.1
   playerCamera: {fileID: 4415503750768835175}
   rb: {fileID: 4501799505234890367}
@@ -166,6 +166,20 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &3716585743204392356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6556340530599816881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af241d9d72bfeea649f00a01937e5d52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerActions
+  gridDisplay: {fileID: 0}
+  gridIndicator: {fileID: 0}
 --- !u!1 &7473906190482846058
 GameObject:
   m_ObjectHideFlags: 0
