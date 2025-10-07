@@ -926,7 +926,7 @@ MonoBehaviour:
   rayCastCamera: {fileID: 792410098}
   placementlayermask:
     serializedVersion: 2
-    m_Bits: 115
+    m_Bits: 64
   gridPositionIndicator: {fileID: 442721684}
   grid: {fileID: 590954371}
   gridIndicatorOffset: {x: 0.5, y: 0, z: 0.5}
