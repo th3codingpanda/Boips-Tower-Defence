@@ -175,6 +175,10 @@ PrefabInstance:
       propertyPath: gridIndicator
       value: 
       objectReference: {fileID: 442721684}
+    - target: {fileID: 4246325524724838814, guid: 76dc176f6d3d799bcbd5f152c41d08b0, type: 3}
+      propertyPath: moveSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6556340530599816881, guid: 76dc176f6d3d799bcbd5f152c41d08b0, type: 3}
       propertyPath: m_Name
       value: Player
@@ -301,11 +305,6 @@ MonoBehaviour:
   m_LightUnit: 2
   m_LuxAtDistance: 1
   m_Intensity: 130000
-  m_Version: 13
-  m_ObsoleteShadowResolutionTier: 1
-  m_ObsoleteUseShadowQualitySettings: 0
-  m_ObsoleteCustomShadowResolution: 512
-  m_ObsoleteContactShadows: 0
   m_InnerSpotPercent: 0
   m_SpotIESCutoffPercent: 100
   m_LightDimmer: 1
@@ -424,6 +423,11 @@ MonoBehaviour:
   m_AreaLightEmissiveMeshShadowCastingMode: 0
   m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
   m_AreaLightEmissiveMeshLayer: -1
+  m_Version: 13
+  m_ObsoleteShadowResolutionTier: 1
+  m_ObsoleteUseShadowQualitySettings: 0
+  m_ObsoleteCustomShadowResolution: 512
+  m_ObsoleteContactShadows: 0
 --- !u!1 &281004302
 GameObject:
   m_ObjectHideFlags: 0
@@ -473,7 +477,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &295005656
 Transform:
   m_ObjectHideFlags: 0
@@ -1674,6 +1678,10 @@ PrefabInstance:
     - target: {fileID: 4005857991730990898, guid: 6bc1f20247b2959c894317b80d5ce764, type: 3}
       propertyPath: m_Name
       value: TowerPlacementIndicator
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005857991730990898, guid: 6bc1f20247b2959c894317b80d5ce764, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -5,7 +5,7 @@ public class SafetyTeleport : MonoBehaviour
     {
         if (other.CompareTag("Player") )
         {
-            other.transform.position = new Vector3(0,0,0);
+            other.transform.position = new Vector3(1,0,1);
         }
     }
 }
