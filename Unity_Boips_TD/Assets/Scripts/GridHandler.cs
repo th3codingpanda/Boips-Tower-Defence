@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,8 +11,9 @@ public class GridHandler : MonoSingleton<GridHandler>
     [SerializeField] private Vector3 gridIndicatorOffset;
     [SerializeField] private GameObject gridDisplay;
     [SerializeField] private List<GameObject> towers;
+    private GameObject towerSelected;
     private Vector3 _lastPosition;
-    private Dictionary<Vector3Int, GameObject> _placedWalls = new Dictionary<Vector3Int, GameObject>();
+    private readonly Dictionary<Vector3, GameObject> _placedWalls = new Dictionary<Vector3, GameObject>();
     Ray _ray;
     RaycastHit _hit;
     
@@ -22,6 +22,7 @@ public class GridHandler : MonoSingleton<GridHandler>
         _inputScript = InputPackageManagerScript.Instance;
         _inputScript.BuildMenuEvent.AddListener(ToggleBuildMode);
         _inputScript.PlaceTowerEvent.AddListener(PlaceTower);
+        towerSelected = towers[0];
     }
     private void Update()
     {
@@ -37,9 +38,12 @@ public class GridHandler : MonoSingleton<GridHandler>
     }
     private void PlaceTower()
     {
-        if (gridDisplay.activeSelf)
-        {
-            Instantiate(towers[0], gridPositionIndicator.transform.position , towers[0].transform.rotation);
+        if (gridDisplay.activeSelf && !_placedWalls.ContainsKey(gridPositionIndicator.transform.position))
+        { 
+            Instantiate(towerSelected, gridPositionIndicator.transform.position + new Vector3(0,towerSelected.transform.localScale.y/2,0) , towers[0].transform.rotation);
+            _placedWalls.Add(gridPositionIndicator.transform.position, gridDisplay.gameObject);
+            foreach (var wall in _placedWalls) Debug.Log(wall.Key);
+            
         }
     }
     
