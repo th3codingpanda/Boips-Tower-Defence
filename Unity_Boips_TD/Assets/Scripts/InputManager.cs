@@ -12,16 +12,18 @@ public class InputPackageManagerScript : MonoSingleton<InputPackageManagerScript
     [NonSerialized]public readonly UnityEvent BuildMenuEvent = new UnityEvent();
     [NonSerialized]public readonly UnityEvent PlaceTowerEvent = new UnityEvent();
     [NonSerialized]public readonly UnityEvent<float> SwapTowerEvent = new UnityEvent<float>();
-    
-   
+    [NonSerialized]public readonly UnityEvent AttackEvent = new UnityEvent();
+
+
     InputAction _cameraAction;
     InputAction _moveAction;
     InputAction _jumpAction;
     InputAction _buildMenuAction;
     InputAction _placeTowerAction;
     InputAction _swapTowerAction;
-  
-        
+    InputAction _attackAction;
+
+
     void Start()
     {
         _cameraAction = InputSystem.actions.FindAction("Camera");
@@ -30,6 +32,7 @@ public class InputPackageManagerScript : MonoSingleton<InputPackageManagerScript
         _buildMenuAction = InputSystem.actions.FindAction("BuildMenu");
         _placeTowerAction = InputSystem.actions.FindAction("PlaceTower");
         _swapTowerAction = InputSystem.actions.FindAction("SwapTower");
+        _attackAction = InputSystem.actions.FindAction("Attack");
     }
     void Update()
     {
@@ -58,6 +61,12 @@ public class InputPackageManagerScript : MonoSingleton<InputPackageManagerScript
         if (_swapTowerAction.triggered)
         {
             SwapTowerEvent.Invoke(_swapTowerAction.ReadValue<float>());    
+        }
+
+        if (_attackAction.triggered)
+        {
+            AttackEvent.Invoke();
+            Debug.Log("Attack Invoked");
         }
 
     }
