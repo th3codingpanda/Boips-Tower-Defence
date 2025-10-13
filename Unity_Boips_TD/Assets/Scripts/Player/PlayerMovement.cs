@@ -43,15 +43,11 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         // Checking when we're on the ground and keeping track of our ground check delay
-        if (!_isGrounded && _groundCheckTimer <= 0f)
-        {
-            Vector3 rayOrigin = transform.position + Vector3.up * 0.1f;
-            _isGrounded = Physics.Raycast(rayOrigin, Vector3.down, _raycastDistance, groundLayer);
-        }
-        else
+        if (_isGrounded && _groundCheckTimer >= 0f)
         {
             _groundCheckTimer -= Time.deltaTime;
         }
+
 
     }
 
@@ -93,7 +89,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-
+        if (!_isGrounded && _groundCheckTimer <= 0f)
+        {
+            Vector3 rayOrigin = transform.position + Vector3.up * 0.1f;
+            _isGrounded = Physics.Raycast(rayOrigin, Vector3.down, _raycastDistance, groundLayer);
+        }
         if (_isGrounded)
         {
             _isGrounded = false;
