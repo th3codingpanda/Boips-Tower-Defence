@@ -20,4 +20,13 @@ public class MoneyHandler : MonoBehaviour
     {
         ChangeMoney(1000);
     }
+
+    public bool CheckMoneyAmount(float amount)
+    {
+        if (_zoins - amount >= 0)
+        {
+            return true;
+        }
+        return false;
+    }
 }
