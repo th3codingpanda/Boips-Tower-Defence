@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8823983837959491359}
   - component: {fileID: 6022783636032035248}
   - component: {fileID: 4767689528866698992}
+  - component: {fileID: 8458857828229929485}
   m_Layer: 7
   m_Name: Wall
   m_TagString: Untagged
@@ -111,3 +112,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8458857828229929485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5358007376602177948}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d41b1c5a21686a24d9bbfb3d823c07c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerPlacement
