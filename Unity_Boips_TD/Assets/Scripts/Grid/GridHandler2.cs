@@ -16,10 +16,11 @@ namespace Grid
         [SerializeField] private Vector2 localstartpos;
         [field: Tooltip("This is the end pos based on the object its on.")]
         [SerializeField]private Vector2 localendpos;
-   
-    
         private Dictionary<Vector2, Cell> cells;
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        [SerializeField]private List<Vector2> cellsToSearch;
+        [SerializeField]private List<Vector2> searchedCells;
+        [SerializeField]private List<Vector2> finalPath;
+        
         void Start()
         {
             gridSize = new Vector2(grid.transform.localScale.x, grid.transform.localScale.z);
@@ -43,10 +44,8 @@ namespace Grid
                 
                 }
             }
-        
-        
+        FindPath(localstartpos, localendpos);
         }
-
         private void OnDrawGizmos()
         {
             if (!showGrid || cells == null)
@@ -56,6 +55,7 @@ namespace Grid
 
             foreach (KeyValuePair<Vector2, Cell> cell in cells)
             {
+                
                 if (cell.Value.Position == localstartpos)
                 {
                     Gizmos.color = Color.purple;
@@ -64,9 +64,13 @@ namespace Grid
                 {
                     Gizmos.color = Color.red;
                 }
+                else if (finalPath.Contains(cell.Key))
+                {
+                    Gizmos.color = Color.yellow;
+                }
                 else if (cell.Value.Iswall)
                 {
-                    Gizmos.color = Color.greenYellow;
+                    Gizmos.color = Color.black;
                 }
                 else
                 {
@@ -79,6 +83,87 @@ namespace Grid
                     new Vector3(1,0,1));
             
             }
+        }
+
+        private void FindPath(Vector2 startPos,  Vector2 endPos)
+        {
+            cellsToSearch = new List<Vector2>() {localstartpos};
+            searchedCells = new List<Vector2>();
+            finalPath = new List<Vector2>();
+            Cell startcell = cells[localstartpos];
+            startcell.gcost = 0;
+            startcell.hcost = GetDistance(startPos, endPos);
+            startcell.fcost = GetDistance(startPos, endPos);
+            while (cellsToSearch.Count > 0)
+            {
+                Vector2 celltobesearched = cellsToSearch[0];
+                foreach (Vector2 pos in cellsToSearch)
+                {
+                    Cell c = cells[pos];
+                    if (c.fcost < cells[celltobesearched].fcost || 
+                        c.fcost == cells[celltobesearched].fcost && c.hcost == cells[celltobesearched].hcost)
+                    {
+                        celltobesearched = pos;
+                    }
+                }
+                cellsToSearch.Remove(celltobesearched);
+                searchedCells.Add(celltobesearched);
+                if (celltobesearched == endPos)
+                {
+                    Cell pathcell = cells[endPos];
+                    while (pathcell.Position != startPos)
+                    {
+                        finalPath.Add(pathcell.Position);
+                        pathcell = cells[pathcell.Connection];
+                    }
+
+                    return;
+                }
+                SearchCellNeighbors(celltobesearched, endPos);
+            }
+        }
+
+        private void SearchCellNeighbors(Vector2 cellpos, Vector2 endpos)
+        {
+            for (float x = cellpos.x - 1; x <= 1 + cellpos.x; x++)
+            {
+                for (float y = cellpos.y - 1; y <= 1 + cellpos.y; y++)
+                { 
+                    if ((x == cellpos.x && y != cellpos.y) || (x != cellpos.x && y == cellpos.y))
+                    {
+                        Vector2 neighborPos = new Vector2(x, y);
+                    
+                    
+                    Debug.Log(neighborPos);
+                    if (cells.TryGetValue(neighborPos, out Cell c) && !searchedCells.Contains(neighborPos) &&
+                        !cells[neighborPos].Iswall)
+                    {
+                        int GCostToNeighbor = cells[cellpos].gcost + GetDistance(cellpos, neighborPos);
+                        Debug.Log(GCostToNeighbor);
+                        if (GCostToNeighbor < cells[neighborPos].gcost)
+                        {
+                            Cell neighborNode = cells[neighborPos];
+                            neighborNode.Connection = cellpos;
+                            neighborNode.gcost = GCostToNeighbor;
+                            neighborNode.hcost = GetDistance(neighborPos, endpos);
+                            neighborNode.fcost = neighborNode.gcost + neighborNode.hcost;
+                            if (!cellsToSearch.Contains(neighborPos))
+                            {
+
+                                cellsToSearch.Add(neighborPos);
+                            }
+                        }
+                    }
+                    }
+                }
+            }
+        }
+
+        private int GetDistance(Vector2 pos1, Vector2 pos2)
+        {
+            Vector2Int dist = new Vector2Int(Mathf.Abs((int)pos1.x - (int)pos2.x), Mathf.Abs((int)pos1.y - (int)pos2.y));
+            int lowest = Mathf.Min(dist.x, dist.y);
+            return lowest;
         }
 
         private class Cell
