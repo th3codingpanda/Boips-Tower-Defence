@@ -1,8 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyWaveScript : MonoSingleton<EnemyWaveScript>
 {
     EnemyPathGiver  pathGiver;
+
+    [SerializeField]private List<GameObject> enemyPrefabs;
+    [SerializeField]private GameObject bossPrefab; 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,6 +21,6 @@ public class EnemyWaveScript : MonoSingleton<EnemyWaveScript>
 
     public void SpawnWave(int wave)
     {
-        pathGiver.GetEnemyPath();
+
     }
 }

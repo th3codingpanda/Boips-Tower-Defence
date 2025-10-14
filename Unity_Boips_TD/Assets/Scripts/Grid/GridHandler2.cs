@@ -20,12 +20,9 @@ namespace Grid
         [SerializeField]private List<Vector2> cellsToSearch;
         [SerializeField]private List<Vector2> searchedCells;
         [SerializeField]public List<Vector2> finalPath;
-        
-        void Start()
+
+        private void GenerateGrid()
         {
-            gridSize = new Vector2(grid.transform.localScale.x, grid.transform.localScale.z);
-            localstartpos = new Vector2(localstartpos.x + grid.transform.position.x, localstartpos.y + grid.transform.position.z);
-            localendpos = new Vector2(localendpos.x +  grid.transform.position.x, localendpos.y + grid.transform.position.z);
             cells = new Dictionary<Vector2, Cell>();
             for (float x = 0;x < gridSize.x; x++)
             {
@@ -46,6 +43,14 @@ namespace Grid
                 
                 }
             } FindPath(localstartpos, localendpos);
+        }
+
+        void Start()
+        {
+            gridSize = new Vector2(grid.transform.localScale.x, grid.transform.localScale.z);
+            localstartpos = new Vector2(localstartpos.x + grid.transform.position.x, localstartpos.y + grid.transform.position.z);
+            localendpos = new Vector2(localendpos.x +  grid.transform.position.x, localendpos.y + grid.transform.position.z);
+            GenerateGrid();
         }
         private void OnDrawGizmos()
         {
@@ -122,6 +127,8 @@ namespace Grid
                 }
                 SearchCellNeighbors(celltobesearched, endPos);
             }
+            Debug.Log("ReRollingWalls");
+            GenerateGrid();
         }
 
         private void SearchCellNeighbors(Vector2 cellpos, Vector2 endpos)

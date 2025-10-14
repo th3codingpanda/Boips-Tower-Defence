@@ -11,12 +11,11 @@ public class EnemyPathGiver : MonoSingleton<EnemyPathGiver>
     {
         if (enemyPath.Count == 0)
         {
-            GetPath();
+            CreateNewPath();
         }
-        Debug.Log(enemyPath.Count);
         return enemyPath;
     }
-    public void GetPath()
+    public void CreateNewPath()
     {
         enemyPath = new List<Vector2>();
         for (int i  = gridHandler.finalPath.Count - 1;  i >= 0;  i--)
