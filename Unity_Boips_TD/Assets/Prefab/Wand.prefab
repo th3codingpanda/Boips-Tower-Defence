@@ -51,7 +51,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 67be24e8ee52ec04497cfee5403c5fa3, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 2f6ab05daad066c4387d2abc43b96105, type: 2}
+      objectReference: {fileID: 8699223213782617401, guid: 67be24e8ee52ec04497cfee5403c5fa3, type: 3}
     - target: {fileID: 919132149155446097, guid: 67be24e8ee52ec04497cfee5403c5fa3, type: 3}
       propertyPath: m_Name
       value: Wand

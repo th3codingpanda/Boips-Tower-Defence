@@ -5,6 +5,7 @@ public class MoneyHandler : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI moneyText;
     private float _zoins;
+    UIHandler uiHandler;
     public void ChangeMoney(float amount)
     {
         _zoins += amount;
@@ -13,11 +14,12 @@ public class MoneyHandler : MonoBehaviour
 
     private void UpdateMoney()
     {
-        moneyText.text = "Zoins: " + _zoins;
+        uiHandler.ChangeUIText(moneyText,"Zoins: " + _zoins);
     }
 
     private void Start()
     {
+        uiHandler = UIHandler.Instance;
         ChangeMoney(1000);
     }
 
