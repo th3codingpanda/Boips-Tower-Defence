@@ -13,44 +13,37 @@ public class TowerAttack : MonoBehaviour
     //[SerializeField] private TagField _enemyTag;
     //[SerializeField] private Transform firePoint;
 
-    [SerializeField] private float _attackCooldown;
+    [SerializeField] private float _attackSpeed;
     private float _cooldownTimer;
-    [SerializeField] private float _distance;
-    //[SerializeField] private GameObject enemyPrefab;
+    private float _distance;
 
-    public float Radius = 15f;
+    public float Radius = 0f;
     private Enemy _closestEnemy;
     Enemy target;
 
-
-    //[SerializeField] private GameObject[] AllEnemyObjects;
-
-
     public bool isCoolingDown => Time.time < _cooldownTimer;
     
-    //enemyPrefab = compareTag("enemy");
-    //if (.CompareTag("enemy"))
-    //public List<GameObject> enemiesInRange;
+   
 
     void Start()
     {
-        //enemiesInRange = new List<GameObject>(Resources.LoadAll<GameObject>("enemy"));
-
-        //AllEnemyObjects = GameObject.;
+      
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         TowerShoot();
-        FindClosestEnemy();
+        //FindClosestEnemy();
     }
 
     private void FindClosestEnemy()
     {
         //int Colliders = Physics.OverlapSphereNonAlloc(transform.position, Radius, new Collider[10]);
-        int Colliders = 5;
-        Collider[] hitColliders = new Collider[Colliders];
+
+        int MaxColliders = 20;
+        Collider[] hitColliders = new Collider[MaxColliders];
+
         int numColliders = Physics.OverlapSphereNonAlloc(transform.position, Radius, hitColliders);
         float closestDistanceSqr = Mathf.Infinity;
 
@@ -68,12 +61,12 @@ public class TowerAttack : MonoBehaviour
                 {
                     if (_closestEnemy != null)
                     {
-                        _closestEnemy.UnTarget();
+                        //_closestEnemy.UnTarget();
                     }
 
                     _closestEnemy = target;
                     closestDistanceSqr = _distanceToTarget;
-                    _closestEnemy.Target();
+                    //_closestEnemy.Target();
                     Debug.Log($"Target Acquired: {_closestEnemy}");
 
                 }
@@ -85,17 +78,22 @@ public class TowerAttack : MonoBehaviour
     {
         FindClosestEnemy();
         //target = _closestEnemy
-        _distance = Vector2.Distance(_closestEnemy.transform.position, this.gameObject.transform.position);
+        _distance = Vector3.Distance(_closestEnemy.transform.position, this.gameObject.transform.position);
         if (_closestEnemy != null)
         {
             Debug.Log($"Distance to target: {_distance}");
-            if (_distance <= 30f && _closestEnemy != null)
+            if (_distance > 0 || _distance <= Radius && _closestEnemy != null)
             {
                 if (isCoolingDown) return;
                 Debug.Log("Hit an enemy!");
                 _closestEnemy.transform.GetComponent<DamageScript>().TakeDamage(10);
                 CoolDownStart();
 
+                
+            }
+            if (_distance > Radius || _closestEnemy == null)
+            {
+                Debug.Log("No target in radius");
             }
         }
         //if (_distance <= 30f && _closestEnemy != null)
@@ -110,6 +108,6 @@ public class TowerAttack : MonoBehaviour
     }
     
     private void CoolDownStart() 
-    {         _cooldownTimer = Time.time + _attackCooldown;
+    {         _cooldownTimer = Time.time + _attackSpeed;
     }
 }

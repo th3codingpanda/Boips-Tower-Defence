@@ -13,8 +13,8 @@ public class EnemyPingPong : MonoBehaviour
 
     void Update()
     {
-        transform.position = Vector3.Lerp(startMarker.position, endMarker.position, Mathf.PingPong(Time.time, 1));
+        transform.position = Vector3.Lerp(startMarker.position, endMarker.position, 1);
     }
 
-
+    //Mathf.PingPong(Time.time, 1)
 }
