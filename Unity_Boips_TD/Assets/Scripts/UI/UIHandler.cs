@@ -1,16 +1,10 @@
+using TMPro;
 using UnityEngine;
 
 public class UIHandler : MonoSingleton<UIHandler>
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void ChangeUIText(TextMeshProUGUI TextToChange, string Text)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        TextToChange.text = Text;
     }
 }

@@ -19,11 +19,13 @@ namespace Grid
         private Dictionary<Vector2, Cell> cells;
         [SerializeField]private List<Vector2> cellsToSearch;
         [SerializeField]private List<Vector2> searchedCells;
-        [SerializeField]private List<Vector2> finalPath;
+        [SerializeField]public List<Vector2> finalPath;
         
         void Start()
         {
             gridSize = new Vector2(grid.transform.localScale.x, grid.transform.localScale.z);
+            localstartpos = new Vector2(localstartpos.x + grid.transform.position.x, localstartpos.y + grid.transform.position.z);
+            localendpos = new Vector2(localendpos.x +  grid.transform.position.x, localendpos.y + grid.transform.position.z);
             cells = new Dictionary<Vector2, Cell>();
             for (float x = 0;x < gridSize.x; x++)
             {
@@ -31,7 +33,7 @@ namespace Grid
                 {
                     Vector2 pos = new Vector2(x - grid.transform.localScale.x/2 + grid.transform.position.x + wallPrefab.transform.localScale.x/2, z - grid.transform.localScale.z/2 + grid.transform.position.z + wallPrefab.transform.localScale.z/2);
                     cells.Add(pos,new Cell(pos));
-                    Debug.Log(cells[pos].Position);
+                    
                     if (randomwalls)
                     { 
                         int number = Random.Range(0, 10);
@@ -43,8 +45,7 @@ namespace Grid
                         } }
                 
                 }
-            }
-        FindPath(localstartpos, localendpos);
+            } FindPath(localstartpos, localendpos);
         }
         private void OnDrawGizmos()
         {
@@ -132,14 +133,10 @@ namespace Grid
                     if ((x == cellpos.x && y != cellpos.y) || (x != cellpos.x && y == cellpos.y))
                     {
                         Vector2 neighborPos = new Vector2(x, y);
-                    
-                    
-                    Debug.Log(neighborPos);
                     if (cells.TryGetValue(neighborPos, out Cell c) && !searchedCells.Contains(neighborPos) &&
                         !cells[neighborPos].Iswall)
                     {
                         int GCostToNeighbor = cells[cellpos].gcost + GetDistance(cellpos, neighborPos);
-                        Debug.Log(GCostToNeighbor);
                         if (GCostToNeighbor < cells[neighborPos].gcost)
                         {
                             Cell neighborNode = cells[neighborPos];
@@ -163,7 +160,9 @@ namespace Grid
         {
             Vector2Int dist = new Vector2Int(Mathf.Abs((int)pos1.x - (int)pos2.x), Mathf.Abs((int)pos1.y - (int)pos2.y));
             int lowest = Mathf.Min(dist.x, dist.y);
-            return lowest;
+            int highest = Mathf.Max(dist.x, dist.y);
+            int horizontalmovesrequired = highest - lowest;
+            return lowest * 14 + horizontalmovesrequired * 10;
         }
 
         private class Cell
