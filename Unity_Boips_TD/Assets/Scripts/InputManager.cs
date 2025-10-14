@@ -12,6 +12,7 @@ public class InputPackageManagerScript : MonoSingleton<InputPackageManagerScript
     [NonSerialized]public readonly UnityEvent BuildMenuEvent = new UnityEvent();
     [NonSerialized]public readonly UnityEvent PlaceTowerEvent = new UnityEvent();
     [NonSerialized]public readonly UnityEvent<float> SwapTowerEvent = new UnityEvent<float>();
+    [NonSerialized]public readonly UnityEvent StartRound = new UnityEvent();
     
    
     InputAction _cameraAction;
@@ -20,6 +21,7 @@ public class InputPackageManagerScript : MonoSingleton<InputPackageManagerScript
     InputAction _buildMenuAction;
     InputAction _placeTowerAction;
     InputAction _swapTowerAction;
+    InputAction _startRoundAction;
   
         
     void Start()
@@ -30,6 +32,7 @@ public class InputPackageManagerScript : MonoSingleton<InputPackageManagerScript
         _buildMenuAction = InputSystem.actions.FindAction("BuildMenu");
         _placeTowerAction = InputSystem.actions.FindAction("PlaceTower");
         _swapTowerAction = InputSystem.actions.FindAction("SwapTower");
+        _startRoundAction = InputSystem.actions.FindAction("StartRound");
     }
     void Update()
     {
@@ -57,6 +60,11 @@ public class InputPackageManagerScript : MonoSingleton<InputPackageManagerScript
         if (_swapTowerAction.triggered)
         {
             SwapTowerEvent.Invoke(_swapTowerAction.ReadValue<float>());    
+        }
+
+        if (_startRoundAction.triggered)
+        {
+            StartRound.Invoke();
         }
 
     }
