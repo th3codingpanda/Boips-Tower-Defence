@@ -21,7 +21,8 @@ public class TowerAttack : MonoBehaviour
     private Enemy _closestEnemy;
     Enemy target;
 
-    public bool isCoolingDown => Time.time < _cooldownTimer;
+    public bool isCoolingDown => Time.time < _cooldownTimer; 
+    
     
    
 
@@ -33,7 +34,11 @@ public class TowerAttack : MonoBehaviour
     
     void Update()
     {
-        TowerShoot();
+       
+        
+            TowerShoot();
+           
+        
         //FindClosestEnemy();
     }
 
@@ -78,9 +83,10 @@ public class TowerAttack : MonoBehaviour
     {
         FindClosestEnemy();
         //target = _closestEnemy
-        _distance = Vector3.Distance(_closestEnemy.transform.position, this.gameObject.transform.position);
+        //_distance = Vector3.Distance(_closestEnemy.transform.position, this.gameObject.transform.position);
         if (_closestEnemy != null)
         {
+            _distance = Vector3.Distance(_closestEnemy.transform.position, this.gameObject.transform.position);
             Debug.Log($"Distance to target: {_distance}");
             if (_distance > 0 || _distance <= Radius && _closestEnemy != null)
             {
@@ -91,11 +97,19 @@ public class TowerAttack : MonoBehaviour
 
                 
             }
-            if (_distance > Radius || _closestEnemy == null)
-            {
-                Debug.Log("No target in radius");
-            }
+            //if (_distance > Radius || _closestEnemy == null)
+            //{
+            //    Debug.Log("No target in radius");
+            //}
         }
+
+        else if( _closestEnemy == null)
+        {
+            Debug.Log("No target in radius");
+        }
+
+        //_distance > Radius ||
+
         //if (_distance <= 30f && _closestEnemy != null)
         //{
         //    if (isCoolingDown) return;
@@ -104,10 +118,11 @@ public class TowerAttack : MonoBehaviour
         //    CoolDownStart();
 
         //}
-       
+
     }
-    
+
     private void CoolDownStart() 
-    {         _cooldownTimer = Time.time + _attackSpeed;
+    {         
+        _cooldownTimer = Time.time + _attackSpeed;
     }
 }
