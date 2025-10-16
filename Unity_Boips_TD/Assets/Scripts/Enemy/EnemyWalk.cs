@@ -11,7 +11,7 @@ public class EnemyWalk : MonoBehaviour
     void Start()
     {
         pathGiver = EnemyPathGiver.Instance;
-        speed = Random.Range(1, 2);
+        speed = Random.Range(1, 3);
       getpath();
     }
 
@@ -24,6 +24,7 @@ public class EnemyWalk : MonoBehaviour
     {
         walkwaypoints = pathGiver.GetEnemyPath();
         Debug.Log(walkwaypoints.Count);
+        Debug.Log(walkwaypoints[0]);
     }
 
     private void walk()
