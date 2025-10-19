@@ -1,18 +1,33 @@
+using System;
 using System.Collections.Generic;
+using Grid;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PhaseHandler : MonoSingleton<PhaseHandler>
 {
-    private InputPackageManagerScript inputScript;
-    EnemyWaveScript enemywaveScript;
+    private InputManager input;
+    EnemyWaveHandler enemywaveHandler;
     private bool waveOnGoing;
     private int wave;
+    [NonSerialized]public int AmountOfWaves;
+    [SerializeField] private TextMeshProUGUI waveText;
+    [SerializeField] private TextMeshProUGUI phaseText;
     [SerializeField] public List<GameObject> enemiesOnScreen;
+    private UIHandler uiHandler;
+    private bool gameBeaten;
+    private BaseHandler baseHandler;
+    public UnityEvent buildModeRayCast = new UnityEvent();
     void Start()
     {
-        inputScript = InputPackageManagerScript.Instance;
-        enemywaveScript = EnemyWaveScript.Instance;
-        inputScript.StartRound.AddListener(StartWaveSpawn);
+        input = InputManager.Instance;
+        uiHandler = UIHandler.Instance;
+        baseHandler = BaseHandler.Instance;
+        enemywaveHandler = EnemyWaveHandler.Instance;
+        input.StartRound.AddListener(StartWaveSpawn);
+        uiHandler.ChangeUIText(phaseText, $"Phase: Build phase");
+        
     }
 
     private void StartWaveSpawn()
@@ -21,7 +36,10 @@ public class PhaseHandler : MonoSingleton<PhaseHandler>
         {
             waveOnGoing = true;
             wave += 1;
-            StartCoroutine(enemywaveScript.SpawnWave(wave));
+            uiHandler.ChangeUIText(waveText, $"wave: {wave} / {AmountOfWaves}");
+            uiHandler.ChangeUIText(phaseText, $"Phase: Wave phase");
+            StartCoroutine(enemywaveHandler.SpawnWave(wave));
+            
         }
     }
 
@@ -31,6 +49,19 @@ public class PhaseHandler : MonoSingleton<PhaseHandler>
         if (waveOnGoing && enemiesOnScreen.Count == 0)
         {
             waveOnGoing = false;
+            uiHandler.ChangeUIText(phaseText, $"Phase: Build phase");
+        }
+
+        if (!waveOnGoing && wave == AmountOfWaves && !gameBeaten && baseHandler.baseHp >= 1 )
+        {
+            gameBeaten = true;
+            Debug.Log("win");
+            //something to show u won
+        }
+
+        if (!waveOnGoing)
+        {
+            buildModeRayCast.Invoke();
         }
     }
 }

@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b576f96d0346f2a409373c37a3fe4804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyWalk
+  damage: 3
   speed: 2
 --- !u!114 &1098454187580895342
 MonoBehaviour:

@@ -3,13 +3,12 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-public class InputPackageManagerScript : MonoSingleton<InputPackageManagerScript>
+public class InputManager : MonoSingleton<InputManager>
 {
         
     [NonSerialized]public readonly UnityEvent<Vector2> CameraEvent = new UnityEvent<Vector2>();
     [NonSerialized]public readonly UnityEvent<Vector2> MoveEvent = new UnityEvent<Vector2>();
     [NonSerialized]public readonly UnityEvent JumpEvent = new UnityEvent();
-    [NonSerialized]public readonly UnityEvent BuildMenuEvent = new UnityEvent();
     [NonSerialized]public readonly UnityEvent PlaceTowerEvent = new UnityEvent();
     [NonSerialized]public readonly UnityEvent<float> SwapTowerEvent = new UnityEvent<float>();
     [NonSerialized]public readonly UnityEvent AttackEvent = new UnityEvent();
@@ -19,7 +18,6 @@ public class InputPackageManagerScript : MonoSingleton<InputPackageManagerScript
     InputAction _cameraAction;
     InputAction _moveAction;
     InputAction _jumpAction;
-    InputAction _buildMenuAction;
     InputAction _placeTowerAction;
     InputAction _swapTowerAction;
     InputAction _attackAction;
@@ -32,7 +30,6 @@ public class InputPackageManagerScript : MonoSingleton<InputPackageManagerScript
         _cameraAction = InputSystem.actions.FindAction("Camera");
         _moveAction = InputSystem.actions.FindAction("Move");
         _jumpAction = InputSystem.actions.FindAction("Jump");
-        _buildMenuAction = InputSystem.actions.FindAction("BuildMenu");
         _placeTowerAction = InputSystem.actions.FindAction("PlaceTower");
         _swapTowerAction = InputSystem.actions.FindAction("SwapTower");
         _attackAction = InputSystem.actions.FindAction("Attack");
@@ -51,11 +48,6 @@ public class InputPackageManagerScript : MonoSingleton<InputPackageManagerScript
             JumpEvent.Invoke();
         }
         MoveEvent.Invoke(_moveAction.ReadValue<Vector2>());
-        if (_buildMenuAction.triggered)
-        {
-            BuildMenuEvent.Invoke();
-        }
-
         if (_placeTowerAction.triggered)
         {
             PlaceTowerEvent.Invoke();
