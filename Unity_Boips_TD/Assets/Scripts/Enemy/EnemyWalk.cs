@@ -6,12 +6,17 @@ public class EnemyWalk : MonoBehaviour
     private List<Vector2> walkwaypoints = new List<Vector2>();
     private EnemyPathGiver pathGiver;
     [SerializeField]private float speed;
+    private PhaseHandler phaseHandler;
     int currentIndex = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        phaseHandler = PhaseHandler.Instance;
         pathGiver = EnemyPathGiver.Instance;
-        speed = Random.Range(1, 3);
+        if (speed == 0)
+        {
+            speed = Random.Range(1, 3);
+        }
       getpath();
     }
 
@@ -37,6 +42,7 @@ public class EnemyWalk : MonoBehaviour
          {
              if (currentIndex == walkwaypoints.Count - 1)
              {
+                 phaseHandler.enemiesOnScreen.Remove(gameObject);
                  Destroy(this.gameObject);
              }
              else

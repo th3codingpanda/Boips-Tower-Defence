@@ -1,10 +1,13 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class PhaseHandler : MonoBehaviour
+public class PhaseHandler : MonoSingleton<PhaseHandler>
 {
     private InputPackageManagerScript inputScript;
     EnemyWaveScript enemywaveScript;
-    private bool waveOnGoing = false;
+    private bool waveOnGoing;
+    private int wave;
+    [SerializeField] public List<GameObject> enemiesOnScreen;
     void Start()
     {
         inputScript = InputPackageManagerScript.Instance;
@@ -16,13 +19,18 @@ public class PhaseHandler : MonoBehaviour
     {
         if (!waveOnGoing)
         {
-            enemywaveScript.SpawnWave(1); 
+            waveOnGoing = true;
+            wave += 1;
+            StartCoroutine(enemywaveScript.SpawnWave(wave));
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (waveOnGoing && enemiesOnScreen.Count == 0)
+        {
+            waveOnGoing = false;
+        }
     }
 }

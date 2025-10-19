@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 4646835091916483315}
   - component: {fileID: 6170353143777833090}
   - component: {fileID: 3400997969460323653}
+  - component: {fileID: 1098454187580895342}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Enemy 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68,7 +69,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 2100000, guid: c4454d0be11684a4b9cec4b0c0a9898c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -126,4 +127,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b576f96d0346f2a409373c37a3fe4804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyWalk
-  speed: 0
+  speed: 2
+--- !u!114 &1098454187580895342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728384455046609361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84e8d556e4dc642408866742fafc39e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageScript
+  _hp: 50
