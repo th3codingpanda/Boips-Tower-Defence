@@ -14,14 +14,17 @@ public class TowerAttack : MonoBehaviour
     //[SerializeField] private Transform firePoint;
 
     [SerializeField] private float _attackSpeed;
-    private float _cooldownTimer;
-    private float _distance;
+    private float _attackPerSecond;
 
+
+    private float _distance;
     public float Radius = 0f;
     private Enemy _closestEnemy;
     Enemy target;
 
-    public bool isCoolingDown => Time.time < _cooldownTimer; 
+    [SerializeField] private ParticleSystem _towerBullet;
+
+    public bool IsSpeedingUp => Time.time < _attackPerSecond; 
     
     
    
@@ -82,20 +85,20 @@ public class TowerAttack : MonoBehaviour
     private void TowerShoot()
     {
         FindClosestEnemy();
-        //target = _closestEnemy
-        //_distance = Vector3.Distance(_closestEnemy.transform.position, this.gameObject.transform.position);
+
+       
         if (_closestEnemy != null)
         {
             _distance = Vector3.Distance(_closestEnemy.transform.position, this.gameObject.transform.position);
             Debug.Log($"Distance to target: {_distance}");
             if (_distance > 0 || _distance <= Radius && _closestEnemy != null)
             {
-                if (isCoolingDown) return;
+                if (IsSpeedingUp) return;
                 Debug.Log("Hit an enemy!");
                 _closestEnemy.transform.GetComponent<DamageScript>().TakeDamage(10);
-                CoolDownStart();
-
-                
+                AttackSpeed();
+                ParticleEffect();
+              
             }
             //if (_distance > Radius || _closestEnemy == null)
             //{
@@ -121,8 +124,22 @@ public class TowerAttack : MonoBehaviour
 
     }
 
-    private void CoolDownStart() 
+    private void AttackSpeed() 
     {         
-        _cooldownTimer = Time.time + _attackSpeed;
+        _attackPerSecond = Time.time + (1f / _attackSpeed);
     }
+
+    private void ParticleEffect()
+    {
+        //if (_attackPerSecond > 0) {
+        _towerBullet.Clear();
+        _towerBullet.Play();
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, Radius);
+    }
+    
 }
