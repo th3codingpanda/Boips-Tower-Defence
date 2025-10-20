@@ -27,14 +27,12 @@ public class EnemyPathGiver : MonoSingleton<EnemyPathGiver>
                 {
                     
                     enemyPath.Add(gridHandler.finalPath[i]);
-                    Debug.Log(gridHandler.finalPath[i]);
                 }
 
             }
             else
             {
                 enemyPath.Add(gridHandler.finalPath[i]);
-                Debug.Log(gridHandler.finalPath[i]);
             }
         }
         

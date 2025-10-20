@@ -6,31 +6,32 @@ namespace Grid
 {
     public class GridHandler2 : MonoBehaviour
     {
-        [SerializeField]private GameObject grid;
+        public GameObject grid;
         [SerializeField]private  GameObject wallPrefab;
         [SerializeField] private bool randomwalls;
         private Vector2 gridSize;
         private bool _baseSpawned;
         public bool showGrid;
         [field: Tooltip("This is the start pos based on the object its on.")]
-        [SerializeField] private Vector2 localstartpos;
+         public Vector2 localstartpos;
         [field: Tooltip("This is the end pos based on the object its on.")]
-        [SerializeField]private Vector2 localendpos;
-        private Dictionary<Vector2, Cell> cells;
+        public Vector2 localendpos;
+        private Dictionary<Vector2, Cell> cells = new Dictionary<Vector2, Cell>();
         [SerializeField]private List<Vector2> cellsToSearch;
         [SerializeField]private List<Vector2> searchedCells;
         [SerializeField]public List<Vector2> finalPath;
 
         private void GenerateGrid()
         {
+            DestroyWalls();
             cells = new Dictionary<Vector2, Cell>();
             for (float x = 0;x < gridSize.x; x++)
             {
                 for (float z = 0; z < gridSize.y; z++)
                 {
                     Vector2 pos = new Vector2(x - grid.transform.localScale.x/2 + grid.transform.position.x + wallPrefab.transform.localScale.x/2, z - grid.transform.localScale.z/2 + grid.transform.position.z + wallPrefab.transform.localScale.z/2);
-                    cells.Add(pos,new Cell(pos));
                     
+                    cells.Add(pos, new Cell(pos));
                     if (randomwalls)
                     { 
                         int number = Random.Range(0, 10);
@@ -39,6 +40,7 @@ namespace Grid
                             GameObject wall = Instantiate(wallPrefab , new Vector3(pos.x, wallPrefab.transform.localScale.y/2 + grid.transform.localScale.y/2 +grid.transform.position.y, pos.y), Quaternion.identity);
                             wall.transform.parent = grid.transform;
                             cells[pos].Iswall = true;
+                            cells[pos].Wall = wall;
                         } }
                 
                 }
@@ -185,6 +187,18 @@ namespace Grid
             {
                 Position = posi;
             }
+        }
+
+        private void DestroyWalls()
+        {
+            foreach (KeyValuePair<Vector2, Cell> cell in cells)
+            {
+                if (cell.Value.Iswall)
+                {
+                    Destroy(cell.Value.Wall); 
+                }
+            }
+            
         }
     }
 }

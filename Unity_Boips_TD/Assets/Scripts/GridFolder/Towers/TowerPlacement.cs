@@ -6,18 +6,14 @@ namespace Grid.Towers
     public class TowerPlacement : MonoBehaviour
     {
         // Update is called once per frame
-        private float timer;
-        void Update()
+        bool towerPlaced;
+        public void PlaceTower(GameObject tower)
         {
-            timer += Time.deltaTime;
-            if (timer >= 10)
+            if (!towerPlaced)
             {
-                timer = 0;
-                this.transform.position += new Vector3(0,1,0);
+                towerPlaced = true;
+                Instantiate(tower,transform.position + new Vector3(0,transform.localScale.y / 2 + tower.transform.localScale.y,0), Quaternion.identity);
             }
-
-       
-        
         }
     }
 }
