@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 namespace Player
 {
     public class PlayerAttack : MonoBehaviour
@@ -12,6 +13,17 @@ namespace Player
         {
             input = InputManager.Instance;
             input.AttackEvent.AddListener(Attack);
+=======
+namespace PlayerFolder
+{
+    public class PlayerAttack : MonoBehaviour
+    {
+        private InputManager _inputScript;
+        void Start()
+        {
+            _inputScript = InputManager.Instance;
+            _inputScript.AttackEvent.AddListener(Attack);
+>>>>>>> Stashed changes
 =======
 namespace PlayerFolder
 {
