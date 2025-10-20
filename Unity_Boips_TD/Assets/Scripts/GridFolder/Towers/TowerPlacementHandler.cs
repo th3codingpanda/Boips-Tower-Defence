@@ -13,10 +13,12 @@ namespace GridFolder.Towers
         [SerializeField] private LayerMask towerPlacementlayermask;
         [SerializeField] private GameObject wallPlacementIndicator;
         [SerializeField] private float raycastDistance = 5;
+        [SerializeField] private GameObject grid;
         private PhaseHandler phaseHandler;
         private InputManager inputManager;
         private GridHandler2 gridhandler;
-        private Vector3 _lastPositionWallPlacementPoint;
+        private MoneyHandler moneyHandler;
+        private Vector2 _lastPositionWallPlacementPoint;
         private GameObject _lastPositionTowerPlacementObject;
         private Ray _ray;
         private RaycastHit _hit;
@@ -28,6 +30,7 @@ namespace GridFolder.Towers
             phaseHandler = PhaseHandler.Instance;
             inputManager = InputManager.Instance;
             gridhandler = GridHandler2.Instance;
+            moneyHandler = MoneyHandler.Instance;
             phaseHandler.buildModeRayCast.AddListener(GetSelectedMapPosition);
         }
 
@@ -55,8 +58,11 @@ namespace GridFolder.Towers
                 _ray = new Ray(rayCastCamera.transform.position, rayCastCamera.transform.forward);
                 if (Physics.Raycast(_ray, out _hit, raycastDistance, wallPlacementlayermask))
                 {
-                    _lastPositionWallPlacementPoint = _hit.point;
-                    //Debug.Log("hit wallPlacementlayermask: " + _lastPosition);
+                    _lastPositionWallPlacementPoint = new Vector2(_hit.point.x, _hit.point.z);
+                    _lastPositionWallPlacementPoint = new Vector2(
+                        Mathf.Round(_lastPositionWallPlacementPoint.x),
+                        Mathf.Round(_lastPositionWallPlacementPoint.y ));
+                    wallPlacementIndicator.transform.position = new Vector3(_lastPositionWallPlacementPoint.x,grid.transform.localScale.y/2 + 0.01f, _lastPositionWallPlacementPoint.y);
                 }
                 
             }
@@ -77,21 +83,40 @@ namespace GridFolder.Towers
 
         private void PlaceWall()
         {
-            // TODO Make it translate to grid position so the check will actually check it correclty
-            Debug.Log("Place wall" + _lastPositionWallPlacementPoint);
-            gridhandler.cells[_lastPositionWallPlacementPoint].Iswall = true;
-            if (gridhandler.FindPath(gridhandler.localstartpos, gridhandler.localendpos))
+
+            if (moneyHandler.CheckMoneyAmount(towerPrefab.GetComponent<CostHandler>().cost))
             {
-                GameObject wall = Instantiate(towerPrefab, _lastPositionWallPlacementPoint , Quaternion.identity);
-                gridhandler.cells[_lastPositionWallPlacementPoint].Iswall = true;
-                gridhandler.cells[_lastPositionWallPlacementPoint].Wall = wall;
+                if (gridhandler.cells[_lastPositionWallPlacementPoint].Iswall != true)
+                {
+                    gridhandler.cells[_lastPositionWallPlacementPoint].Iswall = true;
+                    Debug.Log($"StartPos: {gridhandler.localstartpos} EndPos: {gridhandler.localendpos}");
+                    if (gridhandler.FindPath(gridhandler.localstartpos, gridhandler.localendpos))
+                    {
+
+                        moneyHandler.ChangeMoney(-towerPrefab.GetComponent<CostHandler>().cost);
+                        Debug.Log("Place wall" + _lastPositionWallPlacementPoint);
+                        GameObject wall = Instantiate(towerPrefab,
+                            new Vector3(_lastPositionWallPlacementPoint.x,
+                                grid.transform.localScale.y / 2 + towerPrefab.transform.localScale.y / 2,
+                                _lastPositionWallPlacementPoint.y), Quaternion.identity);
+                        gridhandler.cells[_lastPositionWallPlacementPoint].Iswall = true;
+                        gridhandler.cells[_lastPositionWallPlacementPoint].Wall = wall;
+
+
+
+
+                    }
+                    else
+                    {
+                        gridhandler.cells[_lastPositionWallPlacementPoint].Iswall = false;
+                        Debug.Log("Can Not place wall there");
+                    }
+                }
             }
             else
             {
-                gridhandler.cells[_lastPositionWallPlacementPoint].Iswall = false;
-                Debug.Log("Can Not place wall there");
+                Debug.Log("insufficient money");
             }
-
         }
 
         private void PlaceTower()

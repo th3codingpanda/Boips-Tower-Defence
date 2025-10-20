@@ -42,6 +42,7 @@ namespace GridFolder
                             wall.transform.parent = grid.transform;
                             cells[pos].Iswall = true;
                             cells[pos].Wall = wall;
+                            Debug.Log(cells[pos].Position);
                         } }
                 
                 }
@@ -96,10 +97,24 @@ namespace GridFolder
 
         public bool FindPath(Vector2 startPos,  Vector2 endPos)
         {
-            cellsToSearch = new List<Vector2>() {localstartpos};
+            cellsToSearch = new List<Vector2>() {startPos};
             searchedCells = new List<Vector2>();
             finalPath = new List<Vector2>();
-            Cell startcell = cells[localstartpos];
+            foreach (var cell in cells.Values)
+            {   
+                cell.fcost = int.MaxValue;
+                cell.gcost= int.MaxValue;
+                cell.hcost= int.MaxValue;
+                if (cell.Connection != new Vector2
+                    {
+                        x = 0,
+                        y = 0
+                    })
+                {
+                    cell.Connection = new Vector2();
+                }
+            }
+            Cell startcell = cells[startPos];
             startcell.gcost = 0;
             startcell.hcost = GetDistance(startPos, endPos);
             startcell.fcost = GetDistance(startPos, endPos);
@@ -126,7 +141,9 @@ namespace GridFolder
                         pathcell = cells[pathcell.Connection];
                     }
                     isStartUp = false;
+                    Debug.Log("Do i get here?");
                     return true;
+                    
                 }
                 SearchCellNeighbors(celltobesearched, endPos);
             }
@@ -135,11 +152,9 @@ namespace GridFolder
                 Debug.Log("ReRollingWalls");
                 GenerateGrid();
                 return false;
-            }
-            else
-            {
-                return false;
-            }
+            } 
+            Debug.Log("Couldn't find path");
+            return false;
         }
 
         private void SearchCellNeighbors(Vector2 cellpos, Vector2 endpos)
