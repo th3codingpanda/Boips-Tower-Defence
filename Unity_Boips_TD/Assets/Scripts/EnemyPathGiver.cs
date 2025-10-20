@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Grid;
+using GridFolder;
 using UnityEngine;
 
 public class EnemyPathGiver : MonoSingleton<EnemyPathGiver>

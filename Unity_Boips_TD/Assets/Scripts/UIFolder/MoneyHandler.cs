@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class MoneyHandler : MonoBehaviour
+public class MoneyHandler : MonoSingleton<MoneyHandler>
 {
     [SerializeField] TextMeshProUGUI moneyText;
     private float _zoins;

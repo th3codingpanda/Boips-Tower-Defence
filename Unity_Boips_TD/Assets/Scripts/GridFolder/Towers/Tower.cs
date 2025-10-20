@@ -7,7 +7,7 @@ using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class TowerAttack : MonoBehaviour
+public class Tower : MonoBehaviour
 {
     //[SerializeField] private float attackRange = 5f;
     //[SerializeField] private float attackDamage = 10f;
@@ -16,6 +16,7 @@ public class TowerAttack : MonoBehaviour
     //[SerializeField] private Transform firePoint;
 
     [SerializeField] private float _attackSpeed;
+    [SerializeField] private int damage;
     private float _attackPerSecond;
 
 
@@ -93,7 +94,7 @@ public class TowerAttack : MonoBehaviour
             {
                 if (IsSpeedingUp) return;
                 Debug.Log("Hit an enemy!");
-                _closestEnemy.transform.GetComponent<DamageScript>().TakeDamage(10);
+                _closestEnemy.transform.GetComponent<DamageScript>().TakeDamage(damage);
                 AttackSpeed();
                 ParticleEffect();
               

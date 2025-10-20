@@ -20,7 +20,7 @@ namespace PlayerFolder
             towerPlacementHandler = TowerPlacementHandler.Instance;
             uihandler = UIHandler.Instance;
             inputscript.SwapTowerEvent.AddListener(SwapTowers);
-            uihandler.ChangeUIText(towerText, $"Current Tower: {towers[(int)currentTowerIndex].name}");
+            uihandler.ChangeUIText(towerText, $"Current Tower: {towers[(int)currentTowerIndex].name} \nCost: {towers[(int)currentTowerIndex].GetComponent<CostHandler>().cost}");
             towerPlacementHandler.UpdateTowerSelected(towers[(int)currentTowerIndex]);
         }
 
@@ -38,7 +38,7 @@ namespace PlayerFolder
             {
                 currentTowerIndex += indexChanger;
             }
-            uihandler.ChangeUIText(towerText, $"Current Tower: {towers[(int)currentTowerIndex].name}");
+            uihandler.ChangeUIText(towerText, $"Current Tower: {towers[(int)currentTowerIndex].name} \nCost: {towers[(int)currentTowerIndex].GetComponent<CostHandler>().cost}");
             towerPlacementHandler.UpdateTowerSelected(towers[(int)currentTowerIndex]);
             
         }

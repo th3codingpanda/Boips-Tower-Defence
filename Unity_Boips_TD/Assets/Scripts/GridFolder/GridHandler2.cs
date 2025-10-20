@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Grid
+namespace GridFolder
 {
-    public class GridHandler2 : MonoBehaviour
+    public class GridHandler2 : MonoSingleton<GridHandler2>
     {
         public GameObject grid;
         [SerializeField]private  GameObject wallPrefab;
@@ -16,10 +16,11 @@ namespace Grid
          public Vector2 localstartpos;
         [field: Tooltip("This is the end pos based on the object its on.")]
         public Vector2 localendpos;
-        private Dictionary<Vector2, Cell> cells = new Dictionary<Vector2, Cell>();
+        public Dictionary<Vector2, Cell> cells = new Dictionary<Vector2, Cell>();
         [SerializeField]private List<Vector2> cellsToSearch;
         [SerializeField]private List<Vector2> searchedCells;
         [SerializeField]public List<Vector2> finalPath;
+        private bool isStartUp = true;
 
         private void GenerateGrid()
         {
@@ -93,7 +94,7 @@ namespace Grid
             }
         }
 
-        private void FindPath(Vector2 startPos,  Vector2 endPos)
+        public bool FindPath(Vector2 startPos,  Vector2 endPos)
         {
             cellsToSearch = new List<Vector2>() {localstartpos};
             searchedCells = new List<Vector2>();
@@ -124,13 +125,21 @@ namespace Grid
                         finalPath.Add(pathcell.Position);
                         pathcell = cells[pathcell.Connection];
                     }
-
-                    return;
+                    isStartUp = false;
+                    return true;
                 }
                 SearchCellNeighbors(celltobesearched, endPos);
             }
-            Debug.Log("ReRollingWalls");
-            GenerateGrid();
+            if (isStartUp)
+            {
+                Debug.Log("ReRollingWalls");
+                GenerateGrid();
+                return false;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void SearchCellNeighbors(Vector2 cellpos, Vector2 endpos)
@@ -174,7 +183,7 @@ namespace Grid
             return lowest * 14 + horizontalmovesrequired * 10;
         }
 
-        private class Cell
+        public class Cell
         {
             public Vector2 Position;
             public int fcost = int.MaxValue;
