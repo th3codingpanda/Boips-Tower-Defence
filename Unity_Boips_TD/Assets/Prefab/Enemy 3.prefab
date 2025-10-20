@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 498087688140204983}
   m_Layer: 0
   m_Name: Enemy 3
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyWalk
   damage: 1
-  speed: 6
+  speed: 4
 --- !u!114 &498087688140204983
 MonoBehaviour:
   m_ObjectHideFlags: 0
