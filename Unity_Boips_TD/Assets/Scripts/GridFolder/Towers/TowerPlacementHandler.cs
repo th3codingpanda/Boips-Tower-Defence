@@ -11,7 +11,7 @@ namespace GridFolder.Towers
         [SerializeField] private Camera rayCastCamera;
         [SerializeField] private LayerMask wallPlacementlayermask;
         [SerializeField] private LayerMask towerPlacementlayermask;
-        [SerializeField] private GameObject wallPlacementIndicator;
+        public GameObject wallPlacementIndicator;
         [SerializeField] private float raycastDistance = 5;
         [SerializeField] private GameObject grid;
         private PhaseHandler phaseHandler;
@@ -31,7 +31,7 @@ namespace GridFolder.Towers
             inputManager = InputManager.Instance;
             gridhandler = GridHandler2.Instance;
             moneyHandler = MoneyHandler.Instance;
-            phaseHandler.buildModeRayCast.AddListener(GetSelectedMapPosition);
+            phaseHandler.BuildModeRayCast.AddListener(GetSelectedMapPosition);
         }
 
         public void UpdateTowerSelected(GameObject tower)
@@ -51,71 +51,77 @@ namespace GridFolder.Towers
         }
         private void GetSelectedMapPosition()
         {
+            if (!phaseHandler.waveOnGoing)
+            {
+                if (towerPrefab.name == "Wall")
+                {
+                    wallPlacementIndicator.SetActive(true);
+                    _ray = new Ray(rayCastCamera.transform.position, rayCastCamera.transform.forward);
+                    if (Physics.Raycast(_ray, out _hit, raycastDistance, wallPlacementlayermask))
+                    {
+                        _lastPositionWallPlacementPoint = new Vector2(_hit.point.x, _hit.point.z);
+                        _lastPositionWallPlacementPoint = new Vector2(
+                            Mathf.Round(_lastPositionWallPlacementPoint.x),
+                            Mathf.Round(_lastPositionWallPlacementPoint.y ));
+                        wallPlacementIndicator.transform.position = new Vector3(_lastPositionWallPlacementPoint.x,grid.transform.localScale.y/2 + 0.01f, _lastPositionWallPlacementPoint.y);
+                    }
 
-            if (towerPrefab.name == "Wall")
-            {
-                wallPlacementIndicator.SetActive(true);
-                _ray = new Ray(rayCastCamera.transform.position, rayCastCamera.transform.forward);
-                if (Physics.Raycast(_ray, out _hit, raycastDistance, wallPlacementlayermask))
-                {
-                    _lastPositionWallPlacementPoint = new Vector2(_hit.point.x, _hit.point.z);
-                    _lastPositionWallPlacementPoint = new Vector2(
-                        Mathf.Round(_lastPositionWallPlacementPoint.x),
-                        Mathf.Round(_lastPositionWallPlacementPoint.y ));
-                    wallPlacementIndicator.transform.position = new Vector3(_lastPositionWallPlacementPoint.x,grid.transform.localScale.y/2 + 0.01f, _lastPositionWallPlacementPoint.y);
                 }
-                
-            }
-            else
-            {
-                wallPlacementIndicator.SetActive(false);
-                _ray = new Ray(rayCastCamera.transform.position, rayCastCamera.transform.forward);
-                if (Physics.Raycast(_ray, out _hit, raycastDistance, towerPlacementlayermask))
+                else
                 {
-                    _lastPositionTowerPlacementObject = _hit.collider.gameObject;
-                    //Debug.Log("hit towerPlacementlayermask: " + _lastPosition + _hit.transform.name);
+                    wallPlacementIndicator.SetActive(false);
+                    _ray = new Ray(rayCastCamera.transform.position, rayCastCamera.transform.forward);
+                    if (Physics.Raycast(_ray, out _hit, raycastDistance, towerPlacementlayermask))
+                    {
+                        _lastPositionTowerPlacementObject = _hit.collider.gameObject;
+                        //Debug.Log("hit towerPlacementlayermask: " + _lastPosition + _hit.transform.name);
+                    }
                 }
             }
-            //Vector3 cameraRayCastPosition = _lastPosition;
-            //Vector3Int gridposition = .WorldToCell(cameraRayCastPosition);
-            //gridPositionIndicator.transform.position = grid.CellToWorld(gridposition) + gridIndicatorOffset;
         }
 
         private void PlaceWall()
         {
-
-            if (moneyHandler.CheckMoneyAmount(towerPrefab.GetComponent<CostHandler>().cost))
+            if (!phaseHandler.waveOnGoing)
             {
-                if (gridhandler.cells[_lastPositionWallPlacementPoint].Iswall != true)
+
+
+                if (_lastPositionWallPlacementPoint != gridhandler.localstartpos)
                 {
-                    gridhandler.cells[_lastPositionWallPlacementPoint].Iswall = true;
-                    Debug.Log($"StartPos: {gridhandler.localstartpos} EndPos: {gridhandler.localendpos}");
-                    if (gridhandler.FindPath(gridhandler.localstartpos, gridhandler.localendpos))
+                    if (moneyHandler.CheckMoneyAmount(towerPrefab.GetComponent<CostHandler>().cost))
                     {
+                        if (gridhandler.cells[_lastPositionWallPlacementPoint].Iswall != true)
+                        {
+                            gridhandler.cells[_lastPositionWallPlacementPoint].Iswall = true;
+                            Debug.Log($"StartPos: {gridhandler.localstartpos} EndPos: {gridhandler.localendpos}");
+                            if (gridhandler.FindPath(gridhandler.localstartpos, gridhandler.localendpos))
+                            {
 
-                        moneyHandler.ChangeMoney(-towerPrefab.GetComponent<CostHandler>().cost);
-                        Debug.Log("Place wall" + _lastPositionWallPlacementPoint);
-                        GameObject wall = Instantiate(towerPrefab,
-                            new Vector3(_lastPositionWallPlacementPoint.x,
-                                grid.transform.localScale.y / 2 + towerPrefab.transform.localScale.y / 2,
-                                _lastPositionWallPlacementPoint.y), Quaternion.identity);
-                        gridhandler.cells[_lastPositionWallPlacementPoint].Iswall = true;
-                        gridhandler.cells[_lastPositionWallPlacementPoint].Wall = wall;
+                                moneyHandler.ChangeMoney(-towerPrefab.GetComponent<CostHandler>().cost);
+                                Debug.Log("Place wall" + _lastPositionWallPlacementPoint);
+                                GameObject wall = Instantiate(towerPrefab,
+                                    new Vector3(_lastPositionWallPlacementPoint.x,
+                                        grid.transform.localScale.y / 2 + towerPrefab.transform.localScale.y / 2,
+                                        _lastPositionWallPlacementPoint.y), Quaternion.identity);
+                                gridhandler.cells[_lastPositionWallPlacementPoint].Iswall = true;
+                                gridhandler.cells[_lastPositionWallPlacementPoint].Wall = wall;
 
 
 
 
+                            }
+                            else
+                            {
+                                gridhandler.cells[_lastPositionWallPlacementPoint].Iswall = false;
+                                Debug.Log("Can Not place wall there");
+                            }
+                        }
                     }
                     else
                     {
-                        gridhandler.cells[_lastPositionWallPlacementPoint].Iswall = false;
-                        Debug.Log("Can Not place wall there");
+                        Debug.Log("insufficient money");
                     }
                 }
-            }
-            else
-            {
-                Debug.Log("insufficient money");
             }
         }
 
@@ -123,6 +129,11 @@ namespace GridFolder.Towers
         {
             TowerOnWallPlacement towerOnWallPlacement = _lastPositionTowerPlacementObject.GetComponent<TowerOnWallPlacement>();
             towerOnWallPlacement.PlaceTower(towerPrefab,towerPrefab.GetComponent<CostHandler>().cost);
+        }
+
+        public void Turnoffindicator()
+        {
+            wallPlacementIndicator.SetActive(false);
         }
     }
 }
