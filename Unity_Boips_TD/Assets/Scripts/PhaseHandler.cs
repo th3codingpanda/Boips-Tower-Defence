@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Grid;
+using GridFolder.Towers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,7 +10,7 @@ public class PhaseHandler : MonoSingleton<PhaseHandler>
 {
     private InputManager input;
     EnemyWaveHandler enemywaveHandler;
-    private bool waveOnGoing;
+    public bool waveOnGoing;
     private int wave;
     [NonSerialized]public int AmountOfWaves;
     [SerializeField] private TextMeshProUGUI waveText;
@@ -18,13 +19,15 @@ public class PhaseHandler : MonoSingleton<PhaseHandler>
     private UIHandler uiHandler;
     private bool gameBeaten;
     private BaseHandler baseHandler;
-    public UnityEvent buildModeRayCast = new UnityEvent();
+    private TowerPlacementHandler  towerPlacementHandler;
+    [NonSerialized]public readonly UnityEvent BuildModeRayCast = new UnityEvent();
     void Start()
     {
         input = InputManager.Instance;
         uiHandler = UIHandler.Instance;
         baseHandler = BaseHandler.Instance;
         enemywaveHandler = EnemyWaveHandler.Instance;
+        towerPlacementHandler = TowerPlacementHandler.Instance;
         input.StartRound.AddListener(StartWaveSpawn);
         uiHandler.ChangeUIText(phaseText, $"Phase: Build phase");
         
@@ -61,7 +64,11 @@ public class PhaseHandler : MonoSingleton<PhaseHandler>
 
         if (!waveOnGoing)
         {
-            buildModeRayCast.Invoke();
+            BuildModeRayCast.Invoke();
+        }
+        else if (towerPlacementHandler.wallPlacementIndicator.activeInHierarchy)
+        {
+                towerPlacementHandler.Turnoffindicator();
         }
     }
 }

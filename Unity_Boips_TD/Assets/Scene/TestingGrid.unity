@@ -816,12 +816,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b229c082ccc749949bfe3e4e41177520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhaseHandler
+  waveOnGoing: 0
   waveText: {fileID: 1460707194}
   phaseText: {fileID: 500130847}
   enemiesOnScreen: []
-  buildModeRayCast:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!4 &206531650
 Transform:
   m_ObjectHideFlags: 0
