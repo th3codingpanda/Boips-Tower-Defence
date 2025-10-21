@@ -9,6 +9,8 @@ namespace EnemyFolder
         private Renderer _render;
         private PhaseHandler phaseHandler;
         private Color _defColor;
+        MoneyHandler moneyHandler;
+        [SerializeField]private int money;
 
         public void ColorChange()
         {
@@ -18,6 +20,7 @@ namespace EnemyFolder
         void Start()
         {
             phaseHandler = PhaseHandler.Instance;
+            moneyHandler = MoneyHandler.Instance;
             _render = GetComponent<Renderer>();
             _defColor = _render.material.color;
         }
@@ -44,6 +47,7 @@ namespace EnemyFolder
             {
                 phaseHandler.enemiesOnScreen.Remove(gameObject);
                 Destroy(gameObject);
+                moneyHandler.ChangeMoney(money);
             }
         }
 

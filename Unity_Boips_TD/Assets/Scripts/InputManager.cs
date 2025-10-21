@@ -36,7 +36,7 @@ public class InputManager : MonoSingleton<InputManager>
         _swapTowerAction = InputSystem.actions.FindAction("SwapTower");
         _attackAction = InputSystem.actions.FindAction("Attack");
         _startRoundAction = InputSystem.actions.FindAction("StartRound");
-        _pauzeGameAction = InputSystem.actions.FindAction("PauzeGame");
+        _pauzeGameAction = InputSystem.actions.FindAction("PauzeButton");
     }
     void Update()
     {
