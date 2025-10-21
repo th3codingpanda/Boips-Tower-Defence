@@ -13,8 +13,9 @@ public class InputManager : MonoSingleton<InputManager>
     [NonSerialized]public readonly UnityEvent<float> SwapTowerEvent = new UnityEvent<float>();
     [NonSerialized]public readonly UnityEvent AttackEvent = new UnityEvent();
     [NonSerialized]public readonly UnityEvent StartRound = new UnityEvent();
-    
-   
+    [NonSerialized]public readonly UnityEvent PauzeGame = new UnityEvent();
+
+
     InputAction _cameraAction;
     InputAction _moveAction;
     InputAction _jumpAction;
@@ -22,9 +23,10 @@ public class InputManager : MonoSingleton<InputManager>
     InputAction _swapTowerAction;
     InputAction _attackAction;
     InputAction _startRoundAction;
-    
-  
-        
+    InputAction _pauzeGameAction;
+
+
+
     void Start()
     {
         _cameraAction = InputSystem.actions.FindAction("Camera");
@@ -34,6 +36,7 @@ public class InputManager : MonoSingleton<InputManager>
         _swapTowerAction = InputSystem.actions.FindAction("SwapTower");
         _attackAction = InputSystem.actions.FindAction("Attack");
         _startRoundAction = InputSystem.actions.FindAction("StartRound");
+        _pauzeGameAction = InputSystem.actions.FindAction("PauzeGame");
     }
     void Update()
     {
@@ -65,7 +68,10 @@ public class InputManager : MonoSingleton<InputManager>
         {
             StartRound.Invoke();
         }
-
+        if (_pauzeGameAction.triggered)
+        {
+            PauzeGame.Invoke();
+        }
     }
 
 }

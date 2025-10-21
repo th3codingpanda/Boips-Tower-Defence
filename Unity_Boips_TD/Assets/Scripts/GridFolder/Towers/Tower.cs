@@ -130,6 +130,16 @@ public class Tower : MonoBehaviour
 
     private void ParticleEffect()
     {
+
+        if (_closestEnemy == null || _towerBullet == null) return;
+
+
+        Transform particleTransform = _towerBullet.transform;
+
+        Vector3 targetPosition = _closestEnemy.transform.position;
+        targetPosition.y = particleTransform.position.y;
+        particleTransform.LookAt(targetPosition);
+
         //if (_attackPerSecond > 0) {
         _towerBullet.Clear();
         _towerBullet.Play();
