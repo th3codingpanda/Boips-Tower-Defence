@@ -48,7 +48,7 @@ public class Tower : MonoBehaviour
     {
         //int Colliders = Physics.OverlapSphereNonAlloc(transform.position, Radius, new Collider[10]);
 
-        int MaxColliders = 20;
+        int MaxColliders = 100;
         Collider[] hitColliders = new Collider[MaxColliders];
         
         int numColliders = Physics.OverlapSphereNonAlloc(transform.position, Radius, hitColliders);

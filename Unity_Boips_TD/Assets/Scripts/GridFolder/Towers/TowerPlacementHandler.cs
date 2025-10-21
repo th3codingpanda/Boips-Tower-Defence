@@ -83,39 +83,41 @@ namespace GridFolder.Towers
 
         private void PlaceWall()
         {
-
-            if (moneyHandler.CheckMoneyAmount(towerPrefab.GetComponent<CostHandler>().cost))
+            if (_lastPositionWallPlacementPoint != gridhandler.localstartpos)
             {
-                if (gridhandler.cells[_lastPositionWallPlacementPoint].Iswall != true)
+                if (moneyHandler.CheckMoneyAmount(towerPrefab.GetComponent<CostHandler>().cost))
                 {
-                    gridhandler.cells[_lastPositionWallPlacementPoint].Iswall = true;
-                    Debug.Log($"StartPos: {gridhandler.localstartpos} EndPos: {gridhandler.localendpos}");
-                    if (gridhandler.FindPath(gridhandler.localstartpos, gridhandler.localendpos))
+                    if (gridhandler.cells[_lastPositionWallPlacementPoint].Iswall != true)
                     {
-
-                        moneyHandler.ChangeMoney(-towerPrefab.GetComponent<CostHandler>().cost);
-                        Debug.Log("Place wall" + _lastPositionWallPlacementPoint);
-                        GameObject wall = Instantiate(towerPrefab,
-                            new Vector3(_lastPositionWallPlacementPoint.x,
-                                grid.transform.localScale.y / 2 + towerPrefab.transform.localScale.y / 2,
-                                _lastPositionWallPlacementPoint.y), Quaternion.identity);
                         gridhandler.cells[_lastPositionWallPlacementPoint].Iswall = true;
-                        gridhandler.cells[_lastPositionWallPlacementPoint].Wall = wall;
+                        Debug.Log($"StartPos: {gridhandler.localstartpos} EndPos: {gridhandler.localendpos}");
+                        if (gridhandler.FindPath(gridhandler.localstartpos, gridhandler.localendpos))
+                        {
+
+                            moneyHandler.ChangeMoney(-towerPrefab.GetComponent<CostHandler>().cost);
+                            Debug.Log("Place wall" + _lastPositionWallPlacementPoint);
+                            GameObject wall = Instantiate(towerPrefab,
+                                new Vector3(_lastPositionWallPlacementPoint.x,
+                                    grid.transform.localScale.y / 2 + towerPrefab.transform.localScale.y / 2,
+                                    _lastPositionWallPlacementPoint.y), Quaternion.identity);
+                            gridhandler.cells[_lastPositionWallPlacementPoint].Iswall = true;
+                            gridhandler.cells[_lastPositionWallPlacementPoint].Wall = wall;
 
 
 
 
-                    }
-                    else
-                    {
-                        gridhandler.cells[_lastPositionWallPlacementPoint].Iswall = false;
-                        Debug.Log("Can Not place wall there");
+                        }
+                        else
+                        {
+                            gridhandler.cells[_lastPositionWallPlacementPoint].Iswall = false;
+                            Debug.Log("Can Not place wall there");
+                        }
                     }
                 }
-            }
-            else
-            {
-                Debug.Log("insufficient money");
+                else
+                {
+                    Debug.Log("insufficient money");
+                }
             }
         }
 
