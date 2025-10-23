@@ -1,3 +1,4 @@
+using Player;
 using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
@@ -5,11 +6,13 @@ public class PauseMenu : MonoBehaviour
     private bool _isPaused = false;
     public GameObject PauseMenuUI;
     private InputManager _input;
+    public PlayerMovement playerMovement;
     private void Start()
     {
         //Time.timeScale = 0f;
         _input = InputManager.Instance;
         _input.PauzeGame.AddListener(TogglePause);
+        
     }
 
     private void TogglePause()
@@ -50,7 +53,9 @@ public class PauseMenu : MonoBehaviour
 
     public void MouseSensitivity()
     {
+        //change mouseSens float to slider value
 
+        playerMovement.mouseSensitivity = PauseMenuUI.GetComponentInChildren<UnityEngine.UI.Slider>().value;
     }
 }
     

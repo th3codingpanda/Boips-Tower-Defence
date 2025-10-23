@@ -137,7 +137,7 @@ public class Tower : MonoBehaviour
         Transform particleTransform = _towerBullet.transform;
 
         Vector3 targetPosition = _closestEnemy.transform.position;
-        targetPosition.y = particleTransform.position.y;
+        //targetPosition.y = particleTransform.position.y;
         particleTransform.LookAt(targetPosition);
 
         //if (_attackPerSecond > 0) {

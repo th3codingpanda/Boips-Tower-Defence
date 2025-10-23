@@ -7,7 +7,7 @@ namespace Player
         
         private InputManager input;
         [Header("Camera")]
-        [SerializeField] private float mouseSensitivity;
+        [SerializeField] public float mouseSensitivity;
         private float _verticalRotation;
         private float _horizontalRotation;
         [SerializeField] Camera playerCamera;

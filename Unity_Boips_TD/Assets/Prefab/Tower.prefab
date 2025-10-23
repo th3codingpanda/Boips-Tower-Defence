@@ -26,13 +26,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3265270699907290158}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.5, y: -0.5, z: 0.5, w: 0.5}
+  m_LocalRotation: {x: -0.34524104, y: -0.61709696, z: 0.61709696, w: 0.34524104}
   m_LocalPosition: {x: 0.06, y: 0.567, z: -0.15900004}
-  m_LocalScale: {x: 0.6084001, y: 0.5880001, z: 0.3644901}
+  m_LocalScale: {x: 0.6084001, y: 0.5880001, z: 1.5649747}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 663665657798866863}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 31.55, y: -90, z: 90}
 --- !u!198 &5034366466324955985
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -50,7 +50,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -666,7 +666,7 @@ ParticleSystem:
     enabled: 1
     type: 4
     angle: 1
-    length: 5
+    length: 11.81
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 0
     donutRadius: 0.2
