@@ -12,7 +12,10 @@ namespace Grid
         [SerializeField]private TextMeshProUGUI baseText;
         private bool shownloss;
 
-         void Start()
+        public WinLoseUi LoseUI;
+      
+
+        void Start()
         {
             uiHandler = UIHandler.Instance;
             uiHandler.ChangeUIText(baseText, $"BaseHP: {baseHp}");
@@ -31,6 +34,7 @@ namespace Grid
                 shownloss = true;
                 Debug.Log("loss");
                 // Some thing to make it show u lost
+                LoseUI.LoseGame();
             }
         }
     }
