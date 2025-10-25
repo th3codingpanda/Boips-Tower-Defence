@@ -21,8 +21,9 @@ public class PhaseHandler : MonoSingleton<PhaseHandler>
     private BaseHandler baseHandler;
     private TowerPlacementHandler  towerPlacementHandler;
     [NonSerialized]public readonly UnityEvent BuildModeRayCast = new UnityEvent();
+    private bool shownloss;
 
-    public WinLoseUi winUI;
+    public WinLoseUi winLoseUI;
     void Start()
     {
         input = InputManager.Instance;
@@ -56,15 +57,20 @@ public class PhaseHandler : MonoSingleton<PhaseHandler>
             waveOnGoing = false;
             uiHandler.ChangeUIText(phaseText, $"Phase: Build phase");
         }
-
-        if (!waveOnGoing && wave == AmountOfWaves && !gameBeaten && baseHandler.baseHp >= 1 )
+        if (baseHandler.baseHp <= 1 && !shownloss)
+        {
+            shownloss = true;
+            Debug.Log("loss");
+            // Some thing to make it show u lost
+            winLoseUI.LoseGame();
+        }
+        else if (!waveOnGoing && wave == AmountOfWaves && !gameBeaten && baseHandler.baseHp >= 1 )
         {
             gameBeaten = true;
             Debug.Log("win");
             //something to show u won
-            winUI.winGame();
-        }
-
+            winLoseUI.winGame();
+        } 
         if (!waveOnGoing)
         {
             BuildModeRayCast.Invoke();

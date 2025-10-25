@@ -127,8 +127,10 @@ namespace GridFolder.Towers
 
         private void PlaceTower()
         {
-            TowerOnWallPlacement towerOnWallPlacement = _lastPositionTowerPlacementObject.GetComponent<TowerOnWallPlacement>();
-            towerOnWallPlacement.PlaceTower(towerPrefab,towerPrefab.GetComponent<CostHandler>().cost);
+            if (_lastPositionTowerPlacementObject != null){
+                TowerOnWallPlacement towerOnWallPlacement = _lastPositionTowerPlacementObject.GetComponent<TowerOnWallPlacement>();
+                towerOnWallPlacement.PlaceTower(towerPrefab,towerPrefab.GetComponent<CostHandler>().cost);
+            }
         }
 
         public void Turnoffindicator()

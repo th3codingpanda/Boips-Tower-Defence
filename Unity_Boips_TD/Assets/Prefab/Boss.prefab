@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 3051372542519945065}
   - component: {fileID: 214603047782870570}
   - component: {fileID: 5863395576358822171}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Boss
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -256,3 +256,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageScript
   _hp: 300
+  money: 0
