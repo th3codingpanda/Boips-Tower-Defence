@@ -28,6 +28,7 @@ public class EnemyWaveHandler : MonoSingleton<EnemyWaveHandler>
 
     public IEnumerator SpawnWave(int difficulty)
     {
+        phaseHandler.waveFullySpawned = false;
         for (int i = 0; i < difficulty * 2; i++)
         {
                 int enemyprefab = Random.Range(0, enemyPrefabs.Count);
@@ -49,5 +50,7 @@ public class EnemyWaveHandler : MonoSingleton<EnemyWaveHandler>
                 Quaternion.identity);
             phaseHandler.enemiesOnScreen.Add(boss);
         }
+
+        phaseHandler.waveFullySpawned = true;
     }
 }

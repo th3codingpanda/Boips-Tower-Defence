@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using EnemyFolder;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,6 +18,7 @@ namespace PlayerFolder
             [SerializeField] private float range;
             [SerializeField] private int damage;
             [SerializeField]private LayerMask enemyLayerMask;
+            [SerializeField]List<AudioSource> attackAudios;
             void Start()
             {
                 _inputScript = InputManager.Instance;
@@ -33,14 +35,13 @@ namespace PlayerFolder
 
             private void Attack()
             {
-                Debug.Log("Attack");
+                int random = Random.Range(0, 2);
+                attackAudios[random].pitch = Random.Range(0.8f, 1.2f);
+                attackAudios[random].Play();
                 _ray = new Ray(rayCastCamera.transform.position, rayCastCamera.transform.forward);
                 if (Physics.Raycast(_ray, out _hit,range,enemyLayerMask)){
                     DamageScript enemy = _hit.transform.GetComponent<DamageScript>();
-                    if (enemy != null)
-                    {
-                        enemy.TakeDamage(damage);
-                    }
+                    enemy.TakeDamage(damage);
                 }
             }
 

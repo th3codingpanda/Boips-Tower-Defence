@@ -5,7 +5,7 @@ using Unity.Mathematics;
 using UnityEditor.UIElements;
 using UnityEditor.VersionControl;
 using UnityEngine;
-using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 public class Tower : MonoBehaviour
 {
@@ -24,6 +24,7 @@ public class Tower : MonoBehaviour
     public float Radius = 0f;
     private Enemy _closestEnemy;
     Enemy target;
+    [SerializeField] private AudioSource towerAttackSound;
 
     [SerializeField] private ParticleSystem _towerBullet;
 
@@ -95,6 +96,8 @@ public class Tower : MonoBehaviour
                 if (IsSpeedingUp) return;
                 Debug.Log("Hit an enemy!");
                 _closestEnemy.transform.GetComponent<DamageScript>().TakeDamage(damage);
+                towerAttackSound.pitch = Random.Range(0.8f, 1.2f);
+                towerAttackSound.Play();
                 AttackSpeed();
                 ParticleEffect();
               

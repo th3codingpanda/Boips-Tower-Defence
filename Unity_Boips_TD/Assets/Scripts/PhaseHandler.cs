@@ -22,6 +22,7 @@ public class PhaseHandler : MonoSingleton<PhaseHandler>
     private TowerPlacementHandler  towerPlacementHandler;
     [NonSerialized]public readonly UnityEvent BuildModeRayCast = new UnityEvent();
     private bool shownloss;
+    public bool waveFullySpawned;
 
     public WinLoseUi winLoseUI;
     void Start()
@@ -45,14 +46,13 @@ public class PhaseHandler : MonoSingleton<PhaseHandler>
             uiHandler.ChangeUIText(waveText, $"wave: {wave} / {AmountOfWaves}");
             uiHandler.ChangeUIText(phaseText, $"Phase: Wave phase");
             StartCoroutine(enemywaveHandler.SpawnWave(wave));
-            
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (waveOnGoing && enemiesOnScreen.Count == 0)
+        if (waveOnGoing && waveFullySpawned && enemiesOnScreen.Count == 0)
         {
             waveOnGoing = false;
             uiHandler.ChangeUIText(phaseText, $"Phase: Build phase");
