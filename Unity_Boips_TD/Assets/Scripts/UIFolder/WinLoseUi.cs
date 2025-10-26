@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class WinLoseUi : MonoBehaviour
 {
-    //private bool _isPaused = false;
+    private bool _isPaused = false;
     public GameObject LoseUI;
     public GameObject WinUI;
     //private InputManager _input;
@@ -20,17 +20,17 @@ public class WinLoseUi : MonoBehaviour
 
     }
 
-    //private void TogglePause()
-    //{
-    //    if (_isPaused)
-    //    {
-    //        ResumeGame();
-    //    }
-    //    else
-    //    {
-    //        PauseGame();
-    //    }
-    //}
+    private void TogglePause()
+    {
+        if (_isPaused)
+        {
+            ContinueGame();
+        }
+        else
+        {
+            winGame();
+        }
+    }
 
     public void LoseGame()
     {
@@ -70,15 +70,15 @@ public class WinLoseUi : MonoBehaviour
     //    Cursor.visible = true;
     //}
 
-    //public void ResumeGame()
-    //{
-    //    Time.timeScale = 1f;
-    //    PauseMenuUI.SetActive(false);
-    //    _isPaused = false;
+    public void ContinueGame()
+    {
+        Time.timeScale = 1f;
+        WinUI.SetActive(false);
+        _isPaused = false;
 
-    //    Cursor.lockState = CursorLockMode.Locked;
-    //    Cursor.visible = false;
-    //}
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
 
     public void QuitGame()
     {

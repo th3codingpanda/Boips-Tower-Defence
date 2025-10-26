@@ -19,6 +19,10 @@ namespace PlayerFolder
             [SerializeField] private int damage;
             [SerializeField]private LayerMask enemyLayerMask;
             [SerializeField]List<AudioSource> attackAudios;
+            [SerializeField] private Camera playerCamera;
+            [SerializeField] private ParticleSystem _wandParticles; 
+            [SerializeField] private Transform wandTip;
+
             void Start()
             {
                 _inputScript = InputManager.Instance;
@@ -35,6 +39,7 @@ namespace PlayerFolder
 
             private void Attack()
             {
+                WandParticles();
                 int random = Random.Range(0, 2);
                 attackAudios[random].pitch = Random.Range(0.8f, 1.2f);
                 attackAudios[random].Play();
@@ -45,20 +50,16 @@ namespace PlayerFolder
                 }
             }
 
-            //if (Mouse.current.leftButton.wasPressedThisFrame)
-            //{
-            //    Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-            //    RaycastHit hit;
+            private void WandParticles()
+            {
+                _wandParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+                ParticleSystem.MainModule main = _wandParticles.main;
 
-            //    if (Physics.Raycast(ray, out hit))
-            //    {
-            //        DamageScript enemy = hit.transform.GetComponent<DamageScript>();
-            //        if (enemy != null)
-            //        {
-            //            enemy.TakeDamage(10);
-            //        }
-            //    }
-            //}
+                float particlesSpeed = main.startSpeed.constant;
+                main.startLifetime = range / particlesSpeed;
+                //_wandParticles.Clear();
+                _wandParticles.Play();
+            }
         }
     }
 }
