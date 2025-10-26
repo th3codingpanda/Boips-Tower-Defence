@@ -7,7 +7,7 @@ namespace GridFolder.Towers
 {
     public class TowerPlacementHandler : MonoSingleton<TowerPlacementHandler>
     {
-        private InputManager input;
+        private InputActionManager inputAction;
         [SerializeField] private Camera rayCastCamera;
         [SerializeField] private LayerMask wallPlacementlayermask;
         [SerializeField] private LayerMask towerPlacementlayermask;
@@ -15,7 +15,7 @@ namespace GridFolder.Towers
         [SerializeField] private float raycastDistance = 5;
         [SerializeField] private GameObject grid;
         private PhaseHandler phaseHandler;
-        private InputManager inputManager;
+        private InputActionManager inputActionManager;
         private GridHandler2 gridhandler;
         private MoneyHandler moneyHandler;
         private Vector2 _lastPositionWallPlacementPoint;
@@ -28,7 +28,7 @@ namespace GridFolder.Towers
         private void Start()
         {
             phaseHandler = PhaseHandler.Instance;
-            inputManager = InputManager.Instance;
+            inputActionManager = InputActionManager.Instance;
             gridhandler = GridHandler2.Instance;
             moneyHandler = MoneyHandler.Instance;
             phaseHandler.BuildModeRayCast.AddListener(GetSelectedMapPosition);
@@ -40,13 +40,13 @@ namespace GridFolder.Towers
             Debug.Log(towerPrefab.name);
             if (towerPrefab.name == "Wall")
             {
-                inputManager.PlaceTowerEvent.RemoveAllListeners();
-                inputManager.PlaceTowerEvent.AddListener(PlaceWall);
+                inputActionManager.PlaceTowerEvent.RemoveAllListeners();
+                inputActionManager.PlaceTowerEvent.AddListener(PlaceWall);
             }
             else
             {
-                inputManager.PlaceTowerEvent.RemoveAllListeners();
-                inputManager.PlaceTowerEvent.AddListener(PlaceTower);
+                inputActionManager.PlaceTowerEvent.RemoveAllListeners();
+                inputActionManager.PlaceTowerEvent.AddListener(PlaceTower);
             }
         }
         private void GetSelectedMapPosition()

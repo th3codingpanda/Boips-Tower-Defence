@@ -9,14 +9,14 @@ namespace PlayerFolder
     {
         [SerializeField] private List<GameObject> towers;
         private float currentTowerIndex;
-        private InputManager inputscript;
+        private InputActionManager inputscript;
         private UIHandler uihandler;
         [SerializeField]private TextMeshProUGUI towerText;
         TowerPlacementHandler towerPlacementHandler;
 
         private void Start()
         {
-            inputscript = InputManager.Instance;
+            inputscript = InputActionManager.Instance;
             towerPlacementHandler = TowerPlacementHandler.Instance;
             uihandler = UIHandler.Instance;
             inputscript.SwapTowerEvent.AddListener(SwapTowers);

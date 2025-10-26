@@ -3,9 +3,9 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-public class InputManager : MonoSingleton<InputManager>
+public class InputActionManager : MonoSingleton<InputActionManager>
 {
-        
+    InputActionMap inputActionMap;
     [NonSerialized]public readonly UnityEvent<Vector2> CameraEvent = new UnityEvent<Vector2>();
     [NonSerialized]public readonly UnityEvent<Vector2> MoveEvent = new UnityEvent<Vector2>();
     [NonSerialized]public readonly UnityEvent JumpEvent = new UnityEvent();
@@ -29,6 +29,7 @@ public class InputManager : MonoSingleton<InputManager>
 
     void Start()
     {
+        
         _cameraAction = InputSystem.actions.FindAction("Camera");
         _moveAction = InputSystem.actions.FindAction("Move");
         _jumpAction = InputSystem.actions.FindAction("Jump");
@@ -40,7 +41,7 @@ public class InputManager : MonoSingleton<InputManager>
     }
     void Update()
     {
-
+        
         if (_cameraAction.IsInProgress())
         {
             CameraEvent.Invoke(_cameraAction.ReadValue<Vector2>());

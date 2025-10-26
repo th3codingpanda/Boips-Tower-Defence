@@ -5,7 +5,7 @@ namespace Player
     public class PlayerMovement : MonoBehaviour
     {
         
-        private InputManager input;
+        private InputActionManager inputAction;
         [Header("Camera")]
         [SerializeField] public float mouseSensitivity;
         private float _verticalRotation;
@@ -32,12 +32,12 @@ namespace Player
         
         void Start()
         {
-            input = InputManager.Instance;
+            inputAction = InputActionManager.Instance;
             // Set the raycast to be slightly beneath the player's feet
             _raycastDistance = (_playerHeight / 2) + 0.2f;
-            input.CameraEvent.AddListener(RotateCamera);
-            input.MoveEvent.AddListener(MovePlayer);
-            input.JumpEvent.AddListener(Jump);
+            inputAction.CameraEvent.AddListener(RotateCamera);
+            inputAction.MoveEvent.AddListener(MovePlayer);
+            inputAction.JumpEvent.AddListener(Jump);
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }

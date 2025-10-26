@@ -6,17 +6,21 @@ public class PauseMenu : MonoBehaviour
 {
     private bool _isPaused = false;
     public GameObject PauseMenuUI;
-    private InputManager _input;
+    private InputActionManager inputAction;
     public PlayerMovement playerMovement;
     [SerializeField] GameObject inputScript;
-    //InputManager inputManager;
+    InputActionManager inputActionManager;
+    private InputActionMap inputActionMap;
+    [SerializeField]private PlayerInput playerInputActions;
+    
 
     //static PlayerInput playerInput; 
     private void Start()
     {
         //Time.timeScale = 0f;
-        _input = InputManager.Instance;
-        _input.PauzeGame.AddListener(TogglePause);
+        playerInputActions.SwitchCurrentActionMap("Player");
+        inputAction = InputActionManager.Instance;
+        inputAction.PauzeGame.AddListener(TogglePause);
         
     }
 
@@ -39,8 +43,7 @@ public class PauseMenu : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        
-        //playerInput.SwitchCurrentActionMap("UI");
+        playerInputActions.SwitchCurrentActionMap("UI");
     }
 
     public void ResumeGame()
@@ -48,7 +51,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         PauseMenuUI.SetActive(false); //hide pause menu
         _isPaused = false;
-
+        playerInputActions.SwitchCurrentActionMap("Player");
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         //playerInput.SwitchCurrentActionMap("Player");

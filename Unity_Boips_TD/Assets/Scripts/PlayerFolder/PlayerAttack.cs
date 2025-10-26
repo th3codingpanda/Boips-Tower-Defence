@@ -11,7 +11,7 @@ namespace PlayerFolder
     {
         public class PlayerAttack : MonoBehaviour
         {
-            private InputManager _inputScript;
+            private InputActionManager inputActionScript;
             [SerializeField]private Camera rayCastCamera;
             private Ray _ray;
             private RaycastHit _hit;
@@ -25,8 +25,8 @@ namespace PlayerFolder
 
             void Start()
             {
-                _inputScript = InputManager.Instance;
-                _inputScript.AttackEvent.AddListener(Attack);
+                inputActionScript = InputActionManager.Instance;
+                inputActionScript.AttackEvent.AddListener(Attack);
 
             }
 

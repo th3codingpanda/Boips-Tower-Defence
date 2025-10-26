@@ -8,7 +8,7 @@ using UnityEngine.Events;
 
 public class PhaseHandler : MonoSingleton<PhaseHandler>
 {
-    private InputManager input;
+    private InputActionManager inputAction;
     EnemyWaveHandler enemywaveHandler;
     public bool waveOnGoing;
     private int wave;
@@ -27,12 +27,12 @@ public class PhaseHandler : MonoSingleton<PhaseHandler>
     public WinLoseUi winLoseUI;
     void Start()
     {
-        input = InputManager.Instance;
+        inputAction = InputActionManager.Instance;
         uiHandler = UIHandler.Instance;
         baseHandler = BaseHandler.Instance;
         enemywaveHandler = EnemyWaveHandler.Instance;
         towerPlacementHandler = TowerPlacementHandler.Instance;
-        input.StartRound.AddListener(StartWaveSpawn);
+        inputAction.StartRound.AddListener(StartWaveSpawn);
         uiHandler.ChangeUIText(phaseText, $"Phase: Build phase");
         
     }

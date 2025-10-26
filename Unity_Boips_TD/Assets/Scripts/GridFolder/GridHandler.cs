@@ -5,7 +5,7 @@ namespace Grid
 {
     public class GridHandler : MonoSingleton<GridHandler>
     {   
-        private InputManager input; 
+        private InputActionManager inputAction; 
         [SerializeField] private Camera rayCastCamera;
         [SerializeField] private LayerMask placementlayermask;
         [SerializeField] private GameObject gridPositionIndicator;
@@ -21,9 +21,9 @@ namespace Grid
     
         private void Start()
         {
-            input = InputManager.Instance;
+            inputAction = InputActionManager.Instance;
             //input.BuildMenuEvent.AddListener(ToggleBuildMode);
-            input.PlaceTowerEvent.AddListener(PlaceTower);
+            inputAction.PlaceTowerEvent.AddListener(PlaceTower);
             towerSelected = towers[0];
         }
         private void Update()
