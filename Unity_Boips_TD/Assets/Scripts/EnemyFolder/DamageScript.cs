@@ -11,6 +11,7 @@ namespace EnemyFolder
         private Color _defColor;
         MoneyHandler moneyHandler;
         [SerializeField]private int money;
+        [SerializeField] private AudioSource damageSound;
 
         public void ColorChange()
         {
@@ -42,12 +43,18 @@ namespace EnemyFolder
         public void TakeDamage(int damage)
         {
             _hp -= damage;
-
+            
             if(_hp <= 0)
             {
                 phaseHandler.enemiesOnScreen.Remove(gameObject);
                 Destroy(gameObject);
                 moneyHandler.ChangeMoney(money);
+
+            }
+            else
+            {
+                damageSound.pitch = Random.Range(0.8f, 1.2f);
+                damageSound.Play();
             }
         }
 
