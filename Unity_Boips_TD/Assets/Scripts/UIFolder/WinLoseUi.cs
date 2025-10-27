@@ -52,6 +52,7 @@ public class WinLoseUi : MonoBehaviour
     {
         SceneManager.LoadScene("GameScene");
         Time.timeScale = 1f;
+        Debug.Log("Load Game Scene");
     }
 
     public void LoadMainMenu()
