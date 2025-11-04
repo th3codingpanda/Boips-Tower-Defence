@@ -441,6 +441,28 @@
                 },
                 {
                     "name": "",
+                    "id": "f821ffad-cf6f-45de-95c8-f8784d003f0e",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwapTower",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "10e4bbad-4bb4-405e-854d-d6ccd2c2e08c",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "Invert",
+                    "groups": "",
+                    "action": "SwapTower",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "c9d6cf07-5b98-4678-ab43-b096f7a3262a",
                     "path": "<Keyboard>/enter",
                     "interactions": "",
