@@ -84,7 +84,7 @@ namespace GridFolder.Towers
         {
             if (!phaseHandler.waveOnGoing)
             {
-
+                
 
                 if (_lastPositionWallPlacementPoint != gridhandler.localstartpos)
                 {
@@ -96,7 +96,6 @@ namespace GridFolder.Towers
                             Debug.Log($"StartPos: {gridhandler.localstartpos} EndPos: {gridhandler.localendpos}");
                             if (gridhandler.FindPath(gridhandler.localstartpos, gridhandler.localendpos))
                             {
-
                                 moneyHandler.ChangeMoney(-towerPrefab.GetComponent<CostHandler>().cost);
                                 Debug.Log("Place wall" + _lastPositionWallPlacementPoint);
                                 GameObject wall = Instantiate(towerPrefab,
@@ -105,15 +104,12 @@ namespace GridFolder.Towers
                                         _lastPositionWallPlacementPoint.y), Quaternion.identity);
                                 gridhandler.cells[_lastPositionWallPlacementPoint].Iswall = true;
                                 gridhandler.cells[_lastPositionWallPlacementPoint].Wall = wall;
-
-
-
-
                             }
                             else
                             {
                                 gridhandler.cells[_lastPositionWallPlacementPoint].Iswall = false;
                                 Debug.Log("Can Not place wall there");
+                                gridhandler.FindPath(gridhandler.localstartpos, gridhandler.localendpos);
                             }
                         }
                     }

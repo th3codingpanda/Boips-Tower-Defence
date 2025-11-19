@@ -28,6 +28,7 @@ public class EnemyWaveHandler : MonoSingleton<EnemyWaveHandler>
 
     public IEnumerator SpawnWave(int difficulty)
     {
+        
         phaseHandler.waveFullySpawned = false;
         for (int i = 0; i < difficulty * 2; i++)
         {
